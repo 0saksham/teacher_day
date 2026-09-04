@@ -1200,6 +1200,268 @@
       50% { transform: scale(1.4); opacity: 1; }
     }
 
+    /* ==========================================================================
+       SCENE 6: TEACHER'S FEEDBACK & REVIEW STYLING
+       ========================================================================== */
+    .feedback-box-wrap {
+      width: 100%;
+      max-width: 760px;
+      margin: 10px auto 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .feedback-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .feedback-input-label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feedback-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .feedback-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feedback-chip:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan-bright);
+      color: var(--cyan-bright);
+      transform: translateY(-2px);
+    }
+    .feedback-chip.selected {
+      background: rgba(251, 191, 36, 0.18);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      font-weight: 700;
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+
+    .feedback-textarea {
+      width: 100%;
+      min-height: 130px;
+      background: rgba(7, 12, 24, 0.95);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 16px 18px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      color: #f8fafc;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .feedback-textarea:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 20px var(--gold-glow);
+    }
+
+    .feedback-input-text {
+      width: 100%;
+      background: rgba(7, 12, 24, 0.95);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: #f8fafc;
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .feedback-input-text:focus {
+      border-color: var(--cyan-bright);
+      box-shadow: 0 0 16px var(--cyan-glow);
+    }
+
+    .feedback-success-banner {
+      display: none;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1.5px solid var(--emerald-mint);
+      border-radius: 16px;
+      padding: 18px 22px;
+      text-align: center;
+      animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .feedback-success-banner.active { display: block; }
+
+    /* ==========================================================================
+       SECRET (see) VAULT & PASSWORD MODAL
+       ========================================================================== */
+    .secret-see-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.45);
+      text-decoration: none;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .secret-see-link:hover {
+      color: var(--gold-primary);
+      text-shadow: 0 0 10px var(--gold-glow);
+      opacity: 1;
+    }
+
+    .vault-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(4, 7, 16, 0.92);
+      backdrop-filter: blur(20px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .vault-modal-backdrop.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .vault-modal-card {
+      background: linear-gradient(145deg, rgba(14, 22, 42, 0.98), rgba(8, 12, 24, 0.98));
+      border: 2px solid var(--gold-primary);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 640px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 50px var(--gold-glow);
+      overflow: hidden;
+      position: relative;
+      animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.92) translateY(14px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .vault-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(10, 16, 32, 0.8);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+
+    .vault-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .vault-close-btn:hover { color: #f43f5e; }
+
+    .vault-modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .vault-passcode-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .vault-passcode-input {
+      background: rgba(6, 10, 20, 0.95);
+      border: 1.5px solid var(--cyan-bright);
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-family: var(--font-mono);
+      font-size: 20px;
+      letter-spacing: 0.3em;
+      text-align: center;
+      color: var(--gold-primary);
+      width: 100%;
+      max-width: 260px;
+      outline: none;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    .vault-feedback-card {
+      background: rgba(12, 19, 36, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      border-left: 4px solid var(--gold-primary);
+    }
+
+    .vault-feedback-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-dim);
+    }
+
+    .vault-feedback-author {
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+    .vault-feedback-reaction {
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      color: var(--gold-primary);
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+    .vault-feedback-text {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+    }
+
     /* Responsive Adjustments & Mobile Viewport Locking */
     @media (max-width: 768px) {
       .app-header { 
@@ -1459,6 +1721,7 @@
       <button class="step-indicator-btn" data-step="2">3. Thank You</button>
       <button class="step-indicator-btn" data-step="3">4. Honors</button>
       <button class="step-indicator-btn" data-step="4">5. Finale 🎓</button>
+      <button class="step-indicator-btn" data-step="5">6. Review ✍️</button>
     </nav>
 
     <!-- Header Controls: CS Memory Lab Link & Music Player Widget -->
@@ -1485,7 +1748,7 @@
     </div>
   </header>
 
-  <!-- Corner Student Signature Logo Badge (Uses sg.png, No Name Text) -->
+  <!-- Corner Student Signature Logo Badge (Uses sg.png, with discreet (see) secret vault link) -->
   <aside class="corner-signature-badge" id="authorBadge" title="Compiled with admiration for Ms. Manika Manwal">
     <div class="logo-frame">
       <img src="sg.png" 
@@ -1494,7 +1757,7 @@
     </div>
     <div class="signature-meta">
       <span class="signature-label">STUDENT TRIBUTE</span>
-      <span class="signature-sub">CS Department 💻</span>
+      <span class="signature-sub">CS Department 💻 <a href="javascript:void(0)" class="secret-see-link" onclick="openVaultPasscodeModal()" title="Access Stored Feedback Vault">(see)</a></span>
     </div>
   </aside>
 
@@ -1831,6 +2094,9 @@
               <button class="btn-cta-primary" id="burstFireworksBtn">
                 <span>🎉</span> Launch Confetti Storm
               </button>
+              <button class="btn-cta-primary" onclick="goToScene(5)" style="background: linear-gradient(135deg, #38bdf8, #818cf8); color: #fff;">
+                <span>✍️</span> Leave Teacher's Review →
+              </button>
               <a href="additional.html" class="btn-cta-secondary" style="text-decoration: none; border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;">
                 <span>🧪</span> Explore CS Memory Lab Flow →
               </a>
@@ -1843,7 +2109,142 @@
       </div>
     </section>
 
+    <!-- ==========================================================================
+         PAGE 6: TEACHER'S REVIEW & BLESSINGS
+         ========================================================================== -->
+    <section class="page-scene" id="scene-5">
+      <div class="scene-glass-panel">
+        <div class="scene-titlebar">
+          <div class="scene-window-dots">
+            <span class="w-dot w-red"></span>
+            <span class="w-dot w-yellow"></span>
+            <span class="w-dot w-green"></span>
+          </div>
+          <span class="scene-title-tag">feedback://mentor_review.log</span>
+          <span style="width: 40px;"></span>
+        </div>
+
+        <div class="scene-inner-body">
+          <div class="scene-tag-pill" style="border-color: var(--gold-primary); color: var(--gold-primary);">
+            ✍️ TEACHER'S REVIEW & BLESSINGS
+          </div>
+
+          <h1 class="hero-heading" style="font-size: clamp(26px, 4.5vw, 42px);">
+            Your Words Mean Everything,<br>Ms. Manika Manwal! 💌
+          </h1>
+
+          <p class="hero-subhead" style="max-width: 680px; margin-bottom: 22px;">
+            Please leave a short review, advice, or your blessings for your student. Your message will be permanently recorded in memory! 💾✨
+          </p>
+
+          <div class="feedback-box-wrap">
+            <!-- Quick Reaction Selector -->
+            <div class="feedback-input-group">
+              <label class="feedback-input-label">🌟 Select Your Mentor Reaction / Rating:</label>
+              <div class="feedback-chip-row" id="feedbackChipRow">
+                <button type="button" class="feedback-chip selected" data-val="⭐⭐⭐⭐⭐ Outstanding CS Project!">⭐⭐⭐⭐⭐ Outstanding Project</button>
+                <button type="button" class="feedback-chip" data-val="🏆 Proud Mentor Moment">🏆 Proud Mentor</button>
+                <button type="button" class="feedback-chip" data-val="💡 Creative & Inspiring Code">💡 Creative Code</button>
+                <button type="button" class="feedback-chip" data-val="💖 Heartfelt Surprise">💖 Heartfelt Surprise</button>
+                <button type="button" class="feedback-chip" data-val="🚀 Keep Reaching Higher!">🚀 Keep Soaring</button>
+              </div>
+            </div>
+
+            <!-- Review Message Input -->
+            <div class="feedback-input-group">
+              <label class="feedback-input-label" for="mentorFeedbackText">📝 Your Message / Blessings for the Student:</label>
+              <textarea id="mentorFeedbackText" class="feedback-textarea" placeholder="Type your review, thoughts, or blessings here... (e.g. 'So proud of your creativity and hard work!')"></textarea>
+            </div>
+
+            <!-- Mentor Name Signature -->
+            <div class="feedback-input-group">
+              <label class="feedback-input-label" for="mentorAuthorName">✍️ Signature / Name:</label>
+              <input type="text" id="mentorAuthorName" class="feedback-input-text" value="Ms. Manika Manwal" />
+            </div>
+
+            <!-- Submit Action -->
+            <button class="btn-cta-primary" id="submitFeedbackBtn" onclick="submitMentorFeedback()" style="width: 100%; justify-content: center; padding: 15px 28px;">
+              <span>🚀</span>
+              <span>Submit Review & Blessing</span>
+              <span>✓</span>
+            </button>
+
+            <!-- Success State Banner -->
+            <div class="feedback-success-banner" id="feedbackSuccessBanner">
+              <div style="font-size: 32px; margin-bottom: 8px;">🎉💾✨</div>
+              <h3 style="color: var(--emerald-mint); font-size: 20px; font-weight: 800; margin-bottom: 6px;">
+                Review Successfully Stored in Permanent Memory!
+              </h3>
+              <p style="color: #e2e8f0; font-size: 14.5px;">
+                Thank you so much, Ms. Manika! Your blessing and feedback have been recorded with 0 errors.
+              </p>
+            </div>
+          </div>
+
+          <div class="scene-nav-bar">
+            <button class="btn-cta-secondary" onclick="goToScene(4)">
+              <span>← Back to Finale</span>
+            </button>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <a href="additional.html" class="btn-cta-secondary" style="text-decoration: none; border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;">
+                <span>🧪</span> CS Memory Lab →
+              </a>
+              <button class="btn-cta-secondary" onclick="goToScene(0)">
+                <span>🔄</span> Replay All
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- Passcode Unlock Modal for (see) -->
+  <div class="vault-modal-backdrop" id="vaultPasscodeModal">
+    <div class="vault-modal-card" style="max-width: 440px;">
+      <div class="vault-modal-header">
+        <span>🔒 RESTRICTED CS VAULT</span>
+        <button class="vault-close-btn" onclick="closeVaultModals()">✕</button>
+      </div>
+      <div class="vault-modal-body">
+        <div class="vault-passcode-box">
+          <div style="font-size: 40px;">🔐</div>
+          <div style="font-family: var(--font-mono); font-size: 13.5px; color: #cbd5e1;">
+            Enter security passcode to unlock stored mentor reviews:
+          </div>
+          <input type="password" id="vaultPasscodeField" class="vault-passcode-input" maxlength="10" placeholder="••••" />
+          <div id="passcodeErrorMsg" style="color: #f43f5e; font-family: var(--font-mono); font-size: 12px; display: none;">
+            ❌ Invalid Passcode. Access Denied!
+          </div>
+          <button class="btn-cta-primary" onclick="verifyVaultPasscode()" style="width: 100%; justify-content: center;">
+            <span>🔓</span> Unlock Archive Vault
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stored Reviews Vault Modal -->
+  <div class="vault-modal-backdrop" id="vaultArchiveModal">
+    <div class="vault-modal-card">
+      <div class="vault-modal-header">
+        <span>📂 STORED TEACHER REVIEWS & BLESSINGS (PASS: 8755)</span>
+        <button class="vault-close-btn" onclick="closeVaultModals()">✕</button>
+      </div>
+      <div class="vault-modal-body" id="vaultReviewsContainer">
+        <!-- Rendered dynamically -->
+      </div>
+      <div style="padding: 16px 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; background: rgba(10, 16, 32, 0.9);">
+        <button class="btn-cta-secondary" onclick="clearVaultReviews()" style="font-size: 11px; padding: 6px 12px; color: #f43f5e; border-color: rgba(244,63,94,0.3);">
+          🗑️ Clear Storage
+        </button>
+        <button class="btn-cta-primary" onclick="closeVaultModals()" style="padding: 8px 20px; font-size: 13px;">
+          ✓ Done
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script>
     /* ==========================================================================
@@ -1949,10 +2350,10 @@
     });
 
     /* ==========================================================================
-       MULTI-PAGE SCENE CONTROLLER & GUIDANCE
+       MULTI-PAGE SCENE CONTROLLER & GUIDANCE (6 SCENES)
        ========================================================================== */
     let activeSceneIndex = 0;
-    const totalScenes = 5;
+    const totalScenes = 6;
     const stepButtons = document.querySelectorAll('.step-indicator-btn');
 
     const guidePhrases = [
@@ -1960,7 +2361,8 @@
       "Click here or press [ → ] to read the Thank You Letter!",
       "Click here or press [ → ] to view your Honors Award!",
       "Click here or press [ → ] to launch the Grand Finale! 🎓",
-      "🎆 Happy Teacher's Day! Click anywhere for fireworks!"
+      "Click here or press [ → ] to leave your review & blessing! ✍️",
+      "💾 Feedback saved in memory! Happy Teacher's Day! ✨"
     ];
 
     function advanceToNextScene() {
@@ -2012,6 +2414,171 @@
     });
 
     /* ==========================================================================
+       FEEDBACK SUBMISSION & LOCALSTORAGE ENGINE
+       ========================================================================== */
+    const feedbackChips = document.querySelectorAll('#feedbackChipRow .feedback-chip');
+    let selectedMentorReaction = "⭐⭐⭐⭐⭐ Outstanding CS Project!";
+
+    feedbackChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        feedbackChips.forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        selectedMentorReaction = chip.getAttribute('data-val');
+      });
+    });
+
+    function submitMentorFeedback() {
+      const msgInput = document.getElementById('mentorFeedbackText');
+      const authorInput = document.getElementById('mentorAuthorName');
+      const successBanner = document.getElementById('feedbackSuccessBanner');
+      const submitBtn = document.getElementById('submitFeedbackBtn');
+
+      const message = (msgInput.value || '').trim();
+      const author = (authorInput.value || 'Ms. Manika Manwal').trim();
+
+      if (!message) {
+        msgInput.focus();
+        msgInput.style.borderColor = '#f43f5e';
+        msgInput.style.boxShadow = '0 0 16px rgba(244,63,94,0.5)';
+        setTimeout(() => {
+          msgInput.style.borderColor = '';
+          msgInput.style.boxShadow = '';
+        }, 1500);
+        return;
+      }
+
+      const newEntry = {
+        id: 'rev_' + Date.now(),
+        timestamp: new Date().toLocaleString(),
+        author: author,
+        reaction: selectedMentorReaction,
+        message: message
+      };
+
+      // 1. Save locally in localStorage for persistent retrieval
+      let existingVault = [];
+      try {
+        existingVault = JSON.parse(localStorage.getItem('teacher_day_feedback_vault') || '[]');
+      } catch (e) {
+        existingVault = [];
+      }
+      existingVault.unshift(newEntry);
+      localStorage.setItem('teacher_day_feedback_vault', JSON.stringify(existingVault));
+
+      // 2. Quiet background dispatch via Formsubmit/Email if online
+      try {
+        fetch('https://formsubmit.co/ajax/sgodiyal00@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: `🎓 New Teacher's Day Review from ${author}!`,
+            Author: author,
+            Reaction: selectedMentorReaction,
+            Feedback: message,
+            Timestamp: newEntry.timestamp
+          })
+        }).catch(() => {});
+      } catch (e) {}
+
+      // UI Feedback State
+      successBanner.classList.add('active');
+      submitBtn.style.display = 'none';
+      msgInput.disabled = true;
+
+      // Celebrate
+      launchGrandCelebration();
+      const rect = successBanner.getBoundingClientRect();
+      createSparkle(rect.left + rect.width / 2, rect.top, 50);
+    }
+
+    /* ==========================================================================
+       SECRET (see) VAULT & PASSWORD VERIFICATION (PASS: 8755)
+       ========================================================================== */
+    const vaultPasscodeModal = document.getElementById('vaultPasscodeModal');
+    const vaultArchiveModal = document.getElementById('vaultArchiveModal');
+    const vaultPasscodeField = document.getElementById('vaultPasscodeField');
+    const passcodeErrorMsg = document.getElementById('passcodeErrorMsg');
+    const vaultReviewsContainer = document.getElementById('vaultReviewsContainer');
+
+    function openVaultPasscodeModal() {
+      passcodeErrorMsg.style.display = 'none';
+      vaultPasscodeField.value = '';
+      vaultPasscodeModal.classList.add('active');
+      setTimeout(() => vaultPasscodeField.focus(), 150);
+    }
+
+    function closeVaultModals() {
+      vaultPasscodeModal.classList.remove('active');
+      vaultArchiveModal.classList.remove('active');
+    }
+
+    function verifyVaultPasscode() {
+      const enteredCode = (vaultPasscodeField.value || '').trim();
+      if (enteredCode === '8755') {
+        vaultPasscodeModal.classList.remove('active');
+        vaultArchiveModal.classList.add('active');
+        renderVaultReviews();
+      } else {
+        passcodeErrorMsg.style.display = 'block';
+        vaultPasscodeField.style.borderColor = '#f43f5e';
+        vaultPasscodeField.style.animation = 'shakePass 0.4s';
+        setTimeout(() => {
+          vaultPasscodeField.style.animation = '';
+        }, 400);
+      }
+    }
+
+    vaultPasscodeField.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') verifyVaultPasscode();
+    });
+
+    function renderVaultReviews() {
+      let vault = [];
+      try {
+        vault = JSON.parse(localStorage.getItem('teacher_day_feedback_vault') || '[]');
+      } catch (e) {
+        vault = [];
+      }
+
+      if (vault.length === 0) {
+        vaultReviewsContainer.innerHTML = `
+          <div style="text-align:center; padding: 30px 10px; color: #94a3b8; font-family: var(--font-mono); font-size: 13.5px;">
+            <div style="font-size: 38px; margin-bottom: 12px;">📭</div>
+            <div style="color: var(--gold-primary); font-weight: 700; margin-bottom: 6px;">// No Feedback Recorded Yet</div>
+            <div>Once Ms. Manika submits her review in Section 6, it will appear here in permanent memory!</div>
+          </div>
+        `;
+        return;
+      }
+
+      vaultReviewsContainer.innerHTML = vault.map((item, idx) => `
+        <div class="vault-feedback-card">
+          <div class="vault-feedback-meta">
+            <span class="vault-feedback-author">✍️ ${escapeHtml(item.author || 'Ms. Manika Manwal')}</span>
+            <span class="vault-feedback-reaction">${escapeHtml(item.reaction || '⭐⭐⭐⭐⭐')}</span>
+            <span style="color: #64748b;">🕒 ${escapeHtml(item.timestamp || '')}</span>
+          </div>
+          <div class="vault-feedback-text">${escapeHtml(item.message || '')}</div>
+        </div>
+      `).join('');
+    }
+
+    function clearVaultReviews() {
+      if (confirm("Are you sure you want to clear stored teacher reviews?")) {
+        localStorage.removeItem('teacher_day_feedback_vault');
+        renderVaultReviews();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* ==========================================================================
        MASCOT & COMMAND INTERACTION
        ========================================================================== */
     const robotBox = document.getElementById('robotMascotBox');
@@ -2024,20 +2591,22 @@
       "Click the Next button to see what's next! 👉"
     ];
 
-    robotBox.addEventListener('click', () => {
-      robotBox.classList.remove('robot-jump-fx');
-      void robotBox.offsetWidth;
-      robotBox.classList.add('robot-jump-fx');
-      robotSpeech.textContent = robotDialogues[Math.floor(Math.random() * robotDialogues.length)];
-      createSparkle(robotBox.getBoundingClientRect().left + 50, robotBox.getBoundingClientRect().top);
-    });
+    if (robotBox) {
+      robotBox.addEventListener('click', () => {
+        robotBox.classList.remove('robot-jump-fx');
+        void robotBox.offsetWidth;
+        robotBox.classList.add('robot-jump-fx');
+        robotSpeech.textContent = robotDialogues[Math.floor(Math.random() * robotDialogues.length)];
+        createSparkle(robotBox.getBoundingClientRect().left + 50, robotBox.getBoundingClientRect().top);
+      });
+    }
 
     document.querySelectorAll('.cmd-chip').forEach(chip => {
       chip.addEventListener('click', () => {
         const cmd = chip.getAttribute('data-cmd');
-        if (cmd === 'patience') robotSpeech.textContent = "Clarity Level: Maximum! 🚀";
-        if (cmd === 'debug') robotSpeech.textContent = "Errors solved with calm! 🛠️";
-        if (cmd === 'coffee') robotSpeech.textContent = "Inspiration: Infinite! ☕✨";
+        if (cmd === 'patience' && robotSpeech) robotSpeech.textContent = "Clarity Level: Maximum! 🚀";
+        if (cmd === 'debug' && robotSpeech) robotSpeech.textContent = "Errors solved with calm! 🛠️";
+        if (cmd === 'coffee' && robotSpeech) robotSpeech.textContent = "Inspiration: Infinite! ☕✨";
         chip.style.transform = 'scale(0.95)';
         setTimeout(() => chip.style.transform = '', 150);
         const rect = chip.getBoundingClientRect();
@@ -2203,10 +2772,13 @@
       createSparkle(rect.left + rect.width / 2, rect.top + 30, 25);
     }
 
-    document.getElementById('certSealBtn').addEventListener('click', (e) => {
-      createFirework(e.clientX, e.clientY);
-      createSparkle(e.clientX, e.clientY, 40);
-    });
+    const certSealBtn = document.getElementById('certSealBtn');
+    if (certSealBtn) {
+      certSealBtn.addEventListener('click', (e) => {
+        createFirework(e.clientX, e.clientY);
+        createSparkle(e.clientX, e.clientY, 40);
+      });
+    }
 
     function launchGrandCelebration() {
       const cx = window.innerWidth / 2;
@@ -2219,9 +2791,12 @@
       setTimeout(() => createSparkle(cx, cy - 80, 50), 900);
     }
 
-    document.getElementById('burstFireworksBtn').addEventListener('click', (e) => {
-      launchGrandCelebration();
-    });
+    const burstBtn = document.getElementById('burstFireworksBtn');
+    if (burstBtn) {
+      burstBtn.addEventListener('click', (e) => {
+        launchGrandCelebration();
+      });
+    }
 
     window.addEventListener('click', (e) => {
       if (activeSceneIndex === 4 && !e.target.closest('button') && !e.target.closest('#musicWidget')) {

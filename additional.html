@@ -541,6 +541,157 @@
       letter-spacing: 0.04em;
     }
 
+    /* ==========================================================================
+       SECRET (see) VAULT & PASSWORD MODAL
+       ========================================================================== */
+    .secret-see-link {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.45);
+      text-decoration: none;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .secret-see-link:hover {
+      color: var(--gold-primary);
+      text-shadow: 0 0 10px var(--gold-glow);
+      opacity: 1;
+    }
+
+    .vault-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(4, 7, 16, 0.92);
+      backdrop-filter: blur(20px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .vault-modal-backdrop.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .vault-modal-card {
+      background: linear-gradient(145deg, rgba(14, 22, 42, 0.98), rgba(8, 12, 24, 0.98));
+      border: 2px solid var(--gold-primary);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 640px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 50px var(--gold-glow);
+      overflow: hidden;
+      position: relative;
+      animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.92) translateY(14px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .vault-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(10, 16, 32, 0.8);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+
+    .vault-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .vault-close-btn:hover { color: #f43f5e; }
+
+    .vault-modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .vault-passcode-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .vault-passcode-input {
+      background: rgba(6, 10, 20, 0.95);
+      border: 1.5px solid var(--cyan-bright);
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-family: var(--font-mono);
+      font-size: 20px;
+      letter-spacing: 0.3em;
+      text-align: center;
+      color: var(--gold-primary);
+      width: 100%;
+      max-width: 260px;
+      outline: none;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    .vault-feedback-card {
+      background: rgba(12, 19, 36, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      border-left: 4px solid var(--gold-primary);
+    }
+
+    .vault-feedback-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .vault-feedback-author {
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+    .vault-feedback-reaction {
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      color: var(--gold-primary);
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+    .vault-feedback-text {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+    }
+
     /* Responsive & Mobile Viewport Locking */
     @media (max-width: 768px) {
       body {
@@ -715,7 +866,7 @@
            alt="Student Logo" />
     </div>
     <div class="corner-meta">
-      STUDENT TRIBUTE
+      STUDENT TRIBUTE <a href="javascript:void(0)" class="secret-see-link" onclick="openVaultPasscodeModal()" title="Access Stored Feedback Vault">(see)</a>
     </div>
   </aside>
 
@@ -1114,6 +1265,141 @@
       }
       runC();
     }
+
+    /* ==========================================================================
+       SECRET (see) VAULT & PASSWORD VERIFICATION (PASS: 8755)
+       ========================================================================== */
+    const vaultPasscodeModal = document.getElementById('vaultPasscodeModal');
+    const vaultArchiveModal = document.getElementById('vaultArchiveModal');
+    const vaultPasscodeField = document.getElementById('vaultPasscodeField');
+    const passcodeErrorMsg = document.getElementById('passcodeErrorMsg');
+    const vaultReviewsContainer = document.getElementById('vaultReviewsContainer');
+
+    function openVaultPasscodeModal() {
+      passcodeErrorMsg.style.display = 'none';
+      vaultPasscodeField.value = '';
+      vaultPasscodeModal.classList.add('active');
+      setTimeout(() => vaultPasscodeField.focus(), 150);
+    }
+
+    function closeVaultModals() {
+      vaultPasscodeModal.classList.remove('active');
+      vaultArchiveModal.classList.remove('active');
+    }
+
+    function verifyVaultPasscode() {
+      const enteredCode = (vaultPasscodeField.value || '').trim();
+      if (enteredCode === '8755') {
+        vaultPasscodeModal.classList.remove('active');
+        vaultArchiveModal.classList.add('active');
+        renderVaultReviews();
+      } else {
+        passcodeErrorMsg.style.display = 'block';
+        vaultPasscodeField.style.borderColor = '#f43f5e';
+        vaultPasscodeField.style.animation = 'shakePass 0.4s';
+        setTimeout(() => {
+          vaultPasscodeField.style.animation = '';
+        }, 400);
+      }
+    }
+
+    if (vaultPasscodeField) {
+      vaultPasscodeField.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') verifyVaultPasscode();
+      });
+    }
+
+    function renderVaultReviews() {
+      let vault = [];
+      try {
+        vault = JSON.parse(localStorage.getItem('teacher_day_feedback_vault') || '[]');
+      } catch (e) {
+        vault = [];
+      }
+
+      if (vault.length === 0) {
+        vaultReviewsContainer.innerHTML = `
+          <div style="text-align:center; padding: 30px 10px; color: #94a3b8; font-family: var(--font-mono); font-size: 13.5px;">
+            <div style="font-size: 38px; margin-bottom: 12px;">📭</div>
+            <div style="color: var(--gold-primary); font-weight: 700; margin-bottom: 6px;">// No Feedback Recorded Yet</div>
+            <div>Once Ms. Manika submits her review in Section 6, it will appear here in permanent memory!</div>
+          </div>
+        `;
+        return;
+      }
+
+      vaultReviewsContainer.innerHTML = vault.map((item, idx) => `
+        <div class="vault-feedback-card">
+          <div class="vault-feedback-meta">
+            <span class="vault-feedback-author">✍️ ${escapeHtml(item.author || 'Ms. Manika Manwal')}</span>
+            <span class="vault-feedback-reaction">${escapeHtml(item.reaction || '⭐⭐⭐⭐⭐')}</span>
+            <span style="color: #64748b;">🕒 ${escapeHtml(item.timestamp || '')}</span>
+          </div>
+          <div class="vault-feedback-text">${escapeHtml(item.message || '')}</div>
+        </div>
+      `).join('');
+    }
+
+    function clearVaultReviews() {
+      if (confirm("Are you sure you want to clear stored teacher reviews?")) {
+        localStorage.removeItem('teacher_day_feedback_vault');
+        renderVaultReviews();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
   </script>
+
+  <!-- Passcode Unlock Modal for (see) -->
+  <div class="vault-modal-backdrop" id="vaultPasscodeModal">
+    <div class="vault-modal-card" style="max-width: 440px;">
+      <div class="vault-modal-header">
+        <span>🔒 RESTRICTED CS VAULT</span>
+        <button class="vault-close-btn" onclick="closeVaultModals()">✕</button>
+      </div>
+      <div class="vault-modal-body">
+        <div class="vault-passcode-box">
+          <div style="font-size: 40px;">🔐</div>
+          <div style="font-family: var(--font-mono); font-size: 13.5px; color: #cbd5e1;">
+            Enter security passcode to unlock stored mentor reviews:
+          </div>
+          <input type="password" id="vaultPasscodeField" class="vault-passcode-input" maxlength="10" placeholder="••••" />
+          <div id="passcodeErrorMsg" style="color: #f43f5e; font-family: var(--font-mono); font-size: 12px; display: none;">
+            ❌ Invalid Passcode. Access Denied!
+          </div>
+          <button class="btn-main-action" onclick="verifyVaultPasscode()" style="width: 100%; justify-content: center;">
+            <span>🔓</span> Unlock Archive Vault
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stored Reviews Vault Modal -->
+  <div class="vault-modal-backdrop" id="vaultArchiveModal">
+    <div class="vault-modal-card">
+      <div class="vault-modal-header">
+        <span>📂 STORED TEACHER REVIEWS & BLESSINGS (PASS: 8755)</span>
+        <button class="vault-close-btn" onclick="closeVaultModals()">✕</button>
+      </div>
+      <div class="vault-modal-body" id="vaultReviewsContainer">
+        <!-- Rendered dynamically -->
+      </div>
+      <div style="padding: 16px 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; background: rgba(10, 16, 32, 0.9);">
+        <button class="btn-return-portal" onclick="clearVaultReviews()" style="font-size: 11px; padding: 6px 12px; color: #f43f5e; border-color: rgba(244,63,94,0.3); cursor: pointer;">
+          🗑️ Clear Storage
+        </button>
+        <button class="btn-main-action" onclick="closeVaultModals()" style="padding: 8px 20px; font-size: 13px;">
+          ✓ Done
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
