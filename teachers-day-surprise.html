@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Teacher's Day, Ms. Manika Manwal! 🎓✨</title>
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM & CSS VARIABLES
+       Theme: Cyber-Obsidian x Radiant Solar Gold & Emerald (CS + Warmth)
+       ========================================================================== */
+    :root {
+      /* Base & Surfaces */
+      --bg-dark: #060913;
+      --bg-surface: #0c1426;
+      --bg-surface-glass: rgba(12, 20, 38, 0.84);
+      --bg-card-glass: rgba(17, 28, 52, 0.75);
+      
+      /* Accents */
+      --gold-primary: #fbbf24;
+      --gold-secondary: #f59e0b;
+      --gold-glow: rgba(251, 191, 36, 0.5);
+      --gold-gradient: linear-gradient(135deg, #fef08a 0%, #fbbf24 50%, #d97706 100%);
+      
+      --cyan-bright: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.45);
+      --emerald-mint: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.4);
+      --rose-warm: #fb7185;
+      --purple-neon: #c084fc;
+      
+      /* Borders & Depth */
+      --border-subtle: rgba(255, 255, 255, 0.09);
+      --border-glass: rgba(56, 189, 248, 0.25);
+      --border-gold: rgba(251, 191, 36, 0.45);
+      --shadow-elevation: 0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+      
+      /* Typography */
+      --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Fira Code', 'JetBrains Mono', monospace;
+      --font-serif: 'Playfair Display', serif;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      height: 100%;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Canvases */
+    #matrix-canvas, #fx-canvas, #trail-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      display: block;
+    }
+    #matrix-canvas { z-index: 1; opacity: 0.85; }
+    #trail-canvas { z-index: 25; }
+    #fx-canvas { z-index: 30; }
+
+    /* Ambient Dynamic Glowing Blobs */
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+      transition: all 1.8s ease;
+    }
+    .glow-1 {
+      top: -15%;
+      left: -10%;
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 70%);
+    }
+    .glow-2 {
+      bottom: -20%;
+      right: -10%;
+      width: 65vw;
+      height: 65vw;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.16) 0%, transparent 70%);
+    }
+    .glow-3 {
+      top: 35%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 45vw;
+      height: 45vw;
+      background: radial-gradient(circle, rgba(244, 63, 94, 0.1) 0%, transparent 70%);
+    }
+
+    /* ==========================================================================
+       START PORTAL OVERLAY (Guaranteed Audio/Video Activation)
+       ========================================================================== */
+    .start-portal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(6, 9, 19, 0.94);
+      backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+    }
+    .start-portal-overlay.dismissed {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .portal-box {
+      background: rgba(14, 22, 42, 0.94);
+      border: 2px solid var(--gold-primary);
+      border-radius: 30px;
+      padding: 44px 50px;
+      max-width: 540px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.85), 0 0 60px var(--gold-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      animation: popPortal 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes popPortal {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .portal-icon {
+      font-size: 52px;
+      animation: floatIcon 2s ease-in-out infinite alternate;
+    }
+    @keyframes floatIcon {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+
+    .portal-title {
+      font-size: 28px;
+      font-weight: 800;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .portal-desc {
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .btn-enter-portal {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: #060913;
+      background: var(--gold-gradient);
+      border: none;
+      padding: 15px 38px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px var(--gold-glow);
+      transition: all 0.25s ease;
+      margin-top: 8px;
+    }
+    .btn-enter-portal:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 16px 45px rgba(251, 191, 36, 0.85);
+    }
+
+    /* ==========================================================================
+       TOP APP HEADER & MULTI-PAGE STEPPER
+       ========================================================================== */
+    .app-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 16px 28px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(6, 9, 19, 0.82);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      color: var(--gold-primary);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* Stepper Navigation in Header */
+    .stepper-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(12, 20, 38, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+
+    .step-indicator-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+    .step-indicator-btn:hover {
+      color: var(--cyan-bright);
+      background: rgba(56, 189, 248, 0.12);
+    }
+    .step-indicator-btn.active {
+      background: var(--gold-gradient);
+      color: #060913;
+      font-weight: 700;
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+
+    /* Top Controls: Music Player Widget */
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .music-widget {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(12, 20, 38, 0.9);
+      border: 1px solid var(--border-glass);
+      border-radius: 999px;
+      padding: 6px 14px 6px 8px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+    .music-widget:hover {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 16px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+
+    .music-play-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      color: #060913;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .music-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .music-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+    .music-subtitle {
+      font-size: 9.5px;
+      color: var(--cyan-bright);
+    }
+
+    /* Animated Audio Equalizer Bars */
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 14px;
+    }
+    .eq-bar {
+      width: 3px;
+      background: var(--gold-primary);
+      border-radius: 2px;
+      height: 4px;
+      transition: height 0.15s ease;
+    }
+    .music-playing .eq-bar:nth-child(1) { animation: eqJump 0.8s ease infinite alternate; }
+    .music-playing .eq-bar:nth-child(2) { animation: eqJump 0.6s ease infinite alternate 0.2s; }
+    .music-playing .eq-bar:nth-child(3) { animation: eqJump 0.9s ease infinite alternate 0.4s; }
+    .music-playing .eq-bar:nth-child(4) { animation: eqJump 0.7s ease infinite alternate 0.1s; }
+    @keyframes eqJump {
+      0% { height: 3px; }
+      100% { height: 14px; }
+    }
+
+    /* ==========================================================================
+       CORNER SIGNATURE LOGO BADGE (NO NAME TEXT, JUST LOGO)
+       ========================================================================== */
+    .corner-signature-badge {
+      position: fixed;
+      bottom: 24px;
+      left: 28px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(12, 20, 38, 0.9);
+      border: 1.5px solid var(--gold-primary);
+      padding: 6px 14px 6px 6px;
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 18px var(--gold-glow);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .corner-signature-badge:hover {
+      transform: translateY(-3px) scale(1.05);
+      border-color: var(--cyan-bright);
+      box-shadow: 0 14px 40px rgba(56, 189, 248, 0.5);
+    }
+
+    .logo-frame {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 2px solid var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .signature-meta {
+      display: flex;
+      flex-direction: column;
+    }
+    .signature-label {
+      font-size: 10px;
+      color: var(--cyan-bright);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+    .signature-sub {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gold-primary);
+      font-family: var(--font-mono);
+    }
+
+    /* ==========================================================================
+       MULTI-PAGE SCENE CONTAINER & STAGE
+       ========================================================================== */
+    .app-stage {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      width: 100%;
+      padding: 100px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-scene {
+      width: min(980px, 95vw);
+      display: none;
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .page-scene.active-scene {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Scene Hero Glass Container */
+    .scene-glass-panel {
+      width: 100%;
+      background: var(--bg-surface-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 28px;
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      box-shadow: var(--shadow-elevation), 0 0 45px -12px var(--gold-glow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .scene-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      background: rgba(8, 12, 22, 0.92);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .scene-window-dots {
+      display: flex;
+      gap: 7px;
+    }
+    .w-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .w-red { background: #ef4444; }
+    .w-yellow { background: #eab308; }
+    .w-green { background: #22c55e; }
+
+    .scene-title-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan-bright);
+      letter-spacing: 0.05em;
+    }
+
+    .scene-inner-body {
+      padding: 38px 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       SEAMLESS INTRO VIDEO TERMINAL COMPONENT
+       ========================================================================== */
+    .intro-video-wrapper {
+      width: 100%;
+      max-width: 740px;
+      margin: 18px 0 28px;
+      position: relative;
+      border-radius: 20px;
+      background: rgba(6, 10, 20, 0.95);
+      border: 1.5px solid var(--border-gold);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px var(--gold-glow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .intro-video-wrapper:hover {
+      border-color: var(--cyan-bright);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 40px var(--cyan-glow);
+    }
+
+    .video-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      background: rgba(10, 16, 30, 0.9);
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .video-status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--emerald-mint);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .video-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--emerald-mint);
+      box-shadow: 0 0 8px var(--emerald-mint);
+      animation: vPulse 1.5s infinite;
+    }
+    @keyframes vPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .video-screen-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+    }
+
+    #introVideoElement {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+
+    .video-controls-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 14px 18px;
+      background: linear-gradient(0deg, rgba(6, 9, 19, 0.95) 0%, transparent 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .intro-video-wrapper:hover .video-controls-overlay {
+      opacity: 1;
+    }
+
+    .v-ctrl-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .v-ctrl-btn:hover {
+      background: var(--gold-gradient);
+      color: #060913;
+      border-color: var(--gold-primary);
+      transform: scale(1.04);
+    }
+
+    .v-progress-bar {
+      flex: 1;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .v-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--gold-gradient);
+      border-radius: 999px;
+    }
+
+    /* ==========================================================================
+       SCENE 1: THE WELCOME & HERO
+       ========================================================================== */
+    .scene-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gold-primary);
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      padding: 5px 16px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .hero-heading {
+      font-size: clamp(30px, 5.5vw, 50px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 15%, #fef08a 45%, #fbbf24 80%, #fb7185 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subhead {
+      font-size: clamp(16px, 2.2vw, 19px);
+      color: var(--text-muted);
+      max-width: 680px;
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    /* Mascot "Bit" */
+    .robot-stage-wrap {
+      position: relative;
+      margin-bottom: 24px;
+      cursor: pointer;
+    }
+    .robot-bubble {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--cyan-bright);
+      color: var(--cyan-bright);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 4px 14px var(--cyan-glow);
+    }
+    .robot-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--cyan-bright);
+    }
+
+    .robot-svg-box {
+      width: 114px;
+      height: 120px;
+      animation: robotHover 3.2s ease-in-out infinite;
+    }
+    @keyframes robotHover {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(-1.5deg); }
+    }
+    .robot-jump-fx {
+      animation: robotJumpAnim 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+    @keyframes robotJumpAnim {
+      0% { transform: scale(1) translateY(0); }
+      30% { transform: scale(1.08) translateY(-24px) rotate(-6deg); }
+      60% { transform: scale(1.02) translateY(-8px) rotate(4deg); }
+      100% { transform: scale(1) translateY(0); }
+    }
+
+    /* Terminal Console Live Stream */
+    .terminal-stream-box {
+      width: 100%;
+      background: rgba(6, 10, 20, 0.95);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px 22px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 1.75;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .stream-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+    }
+    .stream-line .stream-prefix { color: var(--emerald-mint); }
+    .stream-line .stream-val { color: var(--gold-primary); font-weight: 600; }
+
+    /* Interactive Command Chips */
+    .command-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .cmd-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--cyan-bright);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cmd-chip:hover {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--cyan-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px var(--cyan-glow);
+    }
+
+    /* ==========================================================================
+       SCENE 2: CLASSROOM HIGHLIGHTS & MEMORY CARDS
+       ========================================================================== */
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      width: 100%;
+      margin: 24px 0 32px;
+    }
+
+    .memory-card {
+      background: var(--bg-card-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 26px 22px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .memory-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan-bright), var(--gold-primary));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .memory-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold-primary);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), 0 0 20px var(--gold-glow);
+    }
+    .memory-card:hover::before { opacity: 1; }
+
+    .card-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .memory-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .memory-card-desc {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .memory-card-meta {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--cyan-bright);
+      margin-top: auto;
+    }
+
+    /* ==========================================================================
+       SCENE 3: HEARTFELT PERSONAL LETTER (LOGO SIGNED)
+       ========================================================================== */
+    .letter-parchment {
+      width: 100%;
+      max-width: 800px;
+      background: linear-gradient(180deg, rgba(14, 22, 40, 0.96), rgba(8, 12, 22, 0.96));
+      border: 1px solid var(--border-gold);
+      border-radius: 24px;
+      padding: 38px 42px;
+      text-align: left;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px -5px var(--gold-glow);
+      margin-bottom: 28px;
+    }
+
+    .letter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+    }
+    .letter-to {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--gold-primary);
+      font-style: italic;
+    }
+    .letter-date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .letter-body-p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #e2e8f0;
+      margin-bottom: 20px;
+    }
+    .letter-highlight-box {
+      background: rgba(251, 191, 36, 0.08);
+      border-left: 4px solid var(--gold-primary);
+      padding: 18px 22px;
+      border-radius: 0 14px 14px 0;
+      margin: 24px 0;
+      font-size: 17.5px;
+      line-height: 1.75;
+      color: #fff;
+    }
+    .letter-highlight-box strong {
+      color: var(--gold-primary);
+    }
+
+    .letter-sign-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 20px;
+      margin-top: 28px;
+    }
+    .letter-sign-txt {
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: var(--cyan-bright);
+    }
+
+    .letter-logo-seal {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-primary);
+      overflow: hidden;
+      box-shadow: 0 0 14px var(--gold-glow);
+      background: #0f172a;
+    }
+    .letter-logo-seal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ==========================================================================
+       SCENE 4: CERTIFIED CS MENTOR PLAQUE OF HONOR
+       ========================================================================== */
+    .certificate-card {
+      width: 100%;
+      max-width: 780px;
+      background: linear-gradient(145deg, #101a30, #060a14);
+      border: 2px solid var(--gold-primary);
+      border-radius: 24px;
+      padding: 44px 38px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 50px var(--gold-glow);
+      margin-bottom: 28px;
+    }
+
+    .cert-corner-decor {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--gold-primary);
+    }
+    .c-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+    .c-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+    .c-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+    .c-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+    .cert-ribbon {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .cert-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .cert-recipient {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4.5vw, 44px);
+      color: var(--gold-primary);
+      font-style: italic;
+      margin: 16px 0;
+      text-shadow: 0 4px 20px var(--gold-glow);
+    }
+    .cert-desc {
+      font-size: 16.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 600px;
+      margin: 0 auto 26px;
+    }
+
+    .cert-seal-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .cert-seal {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      box-shadow: 0 0 24px var(--gold-glow);
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cert-seal:hover { transform: scale(1.15) rotate(15deg); }
+
+    /* ==========================================================================
+       SCENE 5: GRAND FINALE CELEBRATION
+       ========================================================================== */
+    .finale-celebration-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .finale-big-title {
+      font-size: clamp(34px, 6vw, 62px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 0%, #fef08a 35%, #fbbf24 70%, #f43f5e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseTitle 2s ease-in-out infinite alternate;
+    }
+    @keyframes pulseTitle {
+      from { filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.3)); }
+      to { filter: drop-shadow(0 0 35px rgba(251, 191, 36, 0.85)); }
+    }
+
+    .interactive-fireworks-prompt {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px dashed var(--cyan-bright);
+      color: var(--cyan-bright);
+      padding: 9px 24px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      margin-bottom: 28px;
+      animation: bouncePrompt 2s infinite;
+    }
+    @keyframes bouncePrompt {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    /* ==========================================================================
+       ATTRACTIVE GUIDING NAVIGATION SYSTEM & ANIMATIONS
+       ========================================================================== */
+    .scene-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 14px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    /* Floating Guide Beacon above Next Button */
+    .nav-guide-beacon {
+      position: absolute;
+      top: -38px;
+      right: 0;
+      background: rgba(14, 22, 42, 0.95);
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 4px 18px var(--gold-glow);
+      color: var(--gold-primary);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: guideBeaconBounce 1.8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .nav-guide-beacon::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 32px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--gold-primary);
+    }
+    @keyframes guideBeaconBounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
+    }
+
+    /* Glowing Pulsing Next Button with Radar Ring */
+    .btn-cta-primary {
+      font-family: var(--font-mono);
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #060913;
+      background: var(--gold-gradient);
+      border: none;
+      padding: 14px 34px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px -5px var(--gold-glow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: visible;
+      animation: ctaPulsingGlow 2.4s ease-in-out infinite;
+    }
+
+    /* Radar Ring Pulse around Next Button */
+    .btn-cta-primary::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 18px;
+      border: 2px solid var(--gold-primary);
+      opacity: 0.6;
+      animation: radarRing 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+      pointer-events: none;
+    }
+    @keyframes radarRing {
+      0% { transform: scale(0.96); opacity: 0.8; }
+      100% { transform: scale(1.15); opacity: 0; }
+    }
+
+    @keyframes ctaPulsingGlow {
+      0%, 100% { box-shadow: 0 10px 25px -5px var(--gold-glow); }
+      50% { box-shadow: 0 16px 40px 0 rgba(251, 191, 36, 0.8), 0 0 20px var(--gold-glow); }
+    }
+
+    .btn-cta-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 20px 45px -5px rgba(251, 191, 36, 0.9);
+    }
+    .btn-cta-primary:active { transform: translateY(0) scale(0.98); }
+
+    .btn-cta-secondary {
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-cta-secondary:hover {
+      color: var(--cyan-bright);
+      border-color: var(--cyan-bright);
+      background: rgba(56, 189, 248, 0.1);
+      transform: translateY(-1px);
+    }
+
+    /* Floating Bottom Guidance Pill */
+    .floating-guide-bar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      background: rgba(12, 20, 38, 0.92);
+      border: 1px solid var(--border-gold);
+      padding: 8px 20px;
+      border-radius: 999px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--gold-glow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-main);
+      cursor: pointer;
+      animation: floatGuide 3s ease-in-out infinite alternate;
+      transition: all 0.25s ease;
+    }
+    .floating-guide-bar:hover {
+      border-color: var(--cyan-bright);
+      box-shadow: 0 14px 40px rgba(56, 189, 248, 0.6);
+      transform: translateX(-50%) translateY(-3px) scale(1.03);
+    }
+    @keyframes floatGuide {
+      0% { transform: translateX(-50%) translateY(0); }
+      100% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    .guide-pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-primary);
+      animation: gDotPulse 1.2s infinite;
+    }
+    @keyframes gDotPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.4); opacity: 1; }
+    }
+
+    /* Responsive Adjustments & Mobile Viewport Locking */
+    @media (max-width: 768px) {
+      .app-header { 
+        padding: 10px 14px; 
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .brand-title {
+        font-size: 12px;
+        gap: 6px;
+      }
+      .brand-badge {
+        font-size: 10px;
+        padding: 2px 8px;
+      }
+      .header-controls {
+        gap: 8px;
+      }
+      .btn-lab-portal {
+        padding: 4px 10px !important;
+        font-size: 11px !important;
+      }
+      .music-widget {
+        padding: 4px 10px 4px 6px;
+        gap: 6px;
+      }
+      .music-title { font-size: 10px; }
+      .music-subtitle { font-size: 9px; display: none; }
+      .stepper-nav { display: none; }
+      
+      .app-stage { 
+        padding: 75px 12px 70px; 
+        min-height: calc(100vh - 60px);
+      }
+      .page-scene {
+        width: 100%;
+        max-width: 100%;
+      }
+      .scene-glass-panel {
+        border-radius: 20px;
+      }
+      .scene-inner-body { 
+        padding: 20px 14px; 
+      }
+      .hero-heading {
+        font-size: clamp(22px, 6.5vw, 32px);
+        margin-bottom: 10px;
+      }
+      .hero-subhead {
+        font-size: 13.5px;
+        line-height: 1.55;
+        margin-bottom: 16px;
+      }
+      .terminal-stream-box {
+        padding: 12px 14px;
+        font-size: 11.5px;
+        margin-bottom: 16px;
+      }
+      .command-chips-row {
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .cmd-chip {
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+      
+      /* Mobile Video Controls */
+      .intro-video-wrapper {
+        margin: 12px 0 18px;
+        border-radius: 14px;
+      }
+      .video-titlebar {
+        padding: 8px 12px;
+        font-size: 10.5px;
+      }
+      .video-controls-overlay {
+        opacity: 1;
+        padding: 8px 12px;
+        gap: 8px;
+      }
+      .v-ctrl-btn {
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+
+      /* Memory Cards Grid */
+      .grid-3col {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin: 16px 0 22px;
+      }
+      .memory-card {
+        padding: 18px 16px;
+        border-radius: 14px;
+      }
+      .memory-card-title { font-size: 16px; }
+      .memory-card-desc { font-size: 13.5px; }
+
+      /* Letter Parchment */
+      .letter-parchment { 
+        padding: 20px 16px; 
+        border-radius: 18px;
+        margin-bottom: 20px;
+      }
+      .letter-header {
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+      }
+      .letter-to { font-size: 19px; }
+      .letter-date { font-size: 11px; }
+      .letter-body-p { 
+        font-size: 14.5px; 
+        line-height: 1.65;
+        margin-bottom: 14px;
+      }
+      .letter-highlight-box {
+        font-size: 14px;
+        line-height: 1.6;
+        padding: 14px 14px;
+        margin: 16px 0;
+      }
+      .letter-sign-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 14px;
+        margin-top: 18px;
+      }
+
+      /* Certificate Honors */
+      .certificate-card { 
+        padding: 22px 14px; 
+        border-radius: 18px;
+      }
+      .cert-ribbon { font-size: 10px; padding: 4px 14px; }
+      .cert-title { font-size: clamp(18px, 5vw, 24px); }
+      .cert-recipient { font-size: clamp(20px, 5.5vw, 28px); }
+      .cert-desc { font-size: 13.5px; line-height: 1.55; }
+      .cert-seal { width: 56px; height: 56px; font-size: 22px; }
+
+      /* Finale Box */
+      .finale-big-title { font-size: clamp(24px, 6.5vw, 34px); }
+      .interactive-fireworks-prompt { font-size: 12px; padding: 6px 14px; }
+      .finale-celebration-box > div > button,
+      .finale-celebration-box > div > a {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Navigation Buttons for Mobile */
+      .scene-nav-bar {
+        flex-direction: column-reverse;
+        gap: 10px;
+        width: 100%;
+        margin-top: 18px;
+      }
+      .scene-nav-bar > * {
+        width: 100%;
+      }
+      .btn-cta-primary, .btn-cta-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 18px;
+        font-size: 14px;
+      }
+      .nav-guide-beacon {
+        position: static;
+        transform: none;
+        margin-bottom: 8px;
+        text-align: center;
+        display: block;
+        width: 100%;
+        animation: none;
+        font-size: 12px;
+        padding: 6px 12px;
+      }
+
+      /* Corner Logo Badge */
+      .corner-signature-badge { 
+        bottom: 12px; 
+        left: 12px; 
+        padding: 3px 8px 3px 3px; 
+        transform: scale(0.85);
+        transform-origin: bottom left;
+      }
+      .logo-frame { width: 32px; height: 32px; }
+      .signature-label { font-size: 8.5px; }
+      .signature-sub { font-size: 8.5px; }
+
+      /* Floating guide bar */
+      .floating-guide-bar { display: none; }
+
+      /* Portal Box */
+      .portal-box {
+        width: 92%;
+        max-width: 420px;
+        padding: 26px 18px;
+        border-radius: 20px;
+        gap: 14px;
+      }
+      .portal-title { font-size: 22px; }
+      .portal-desc { font-size: 13.5px; }
+      .btn-enter-portal { 
+        width: 100%;
+        justify-content: center;
+        padding: 13px 20px;
+        font-size: 14.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Native HTML5 Offline Audio Element -->
+  <audio id="bgAudio" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="C:/Users/saksh/OneDrive/Desktop/techD/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Background Ambient Canvases -->
+  <canvas id="matrix-canvas"></canvas>
+  <canvas id="trail-canvas"></canvas>
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Ambient Light Globs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Welcome & Audio Activation Overlay -->
+  <div class="start-portal-overlay" id="portalOverlay">
+    <div class="portal-box">
+      <div class="portal-icon">🎓✨</div>
+      <h2 class="portal-title">A Gift for Ms. Manika Manwal</h2>
+      <p class="portal-desc">
+        Click below to enter your interactive Computer Science Teacher's Day experience with music & intro message!
+      </p>
+      <button class="btn-enter-portal" id="enterPortalBtn">
+        <span>Enter Experience 🎬</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Top App Navigation Header -->
+  <header class="app-header">
+    <div class="brand-title">
+      <span class="brand-badge">✨ TEACHER'S DAY 2026</span>
+      <span>for <strong>Ms. Manika Manwal</strong></span>
+    </div>
+
+    <!-- Multi-Page Scene Stepper Navigation -->
+    <nav class="stepper-nav" id="topStepperNav">
+      <button class="step-indicator-btn active" data-step="0">1. Welcome</button>
+      <button class="step-indicator-btn" data-step="1">2. Highlights</button>
+      <button class="step-indicator-btn" data-step="2">3. Thank You</button>
+      <button class="step-indicator-btn" data-step="3">4. Honors</button>
+      <button class="step-indicator-btn" data-step="4">5. Finale 🎓</button>
+    </nav>
+
+    <!-- Header Controls: CS Memory Lab Link & Music Player Widget -->
+    <div class="header-controls">
+      <a href="additional.html" class="btn-lab-portal" style="display: flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-family: var(--font-mono); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 999px; text-decoration: none; transition: all 0.25s ease;" title="Launch interactive CS Memory Lab exploration flow">
+        <span>🧪</span>
+        <span>CS Memory Lab</span>
+        <span style="font-size: 10px; background: rgba(56,189,248,0.25); padding: 2px 6px; border-radius: 8px;">EXTRA FLOW</span>
+      </a>
+      
+      <div class="music-widget" id="musicWidget" title="Click to play / pause background soundtrack">
+        <div class="music-play-btn" id="musicPlayIcon">▶</div>
+        <div class="music-info">
+          <span class="music-title">Soundtrack</span>
+          <span class="music-subtitle" id="musicStatus">Click to Play 🎵</span>
+        </div>
+        <div class="equalizer" id="audioEqualizer">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Corner Student Signature Logo Badge (Uses sg.png, No Name Text) -->
+  <aside class="corner-signature-badge" id="authorBadge" title="Compiled with admiration for Ms. Manika Manwal">
+    <div class="logo-frame">
+      <img src="sg.png" 
+           onerror="this.onerror=null; this.src='C:/Users/saksh/OneDrive/Desktop/my/sg.png';" 
+           alt="Student Logo" />
+    </div>
+    <div class="signature-meta">
+      <span class="signature-label">STUDENT TRIBUTE</span>
+      <span class="signature-sub">CS Department 💻</span>
+    </div>
+  </aside>
+
+  <!-- Floating Bottom Interactive Guide Bar -->
+  <div class="floating-guide-bar" id="floatingGuideBar" onclick="advanceToNextScene()">
+    <span class="guide-pulse-dot"></span>
+    <span id="floatingGuideText">Click here or press [ → ] to explore Highlights!</span>
+    <span style="color: var(--gold-primary);">→</span>
+  </div>
+
+  <!-- Main Multi-Page App Stage -->
+  <main class="app-stage">
+
+    <!-- ==========================================================================
+         PAGE 1: WELCOME & SEAMLESS INTRO VIDEO
+         ========================================================================== -->
+    <section class="page-scene active-scene" id="scene-0">
+      <div class="scene-glass-panel">
+        <div class="scene-titlebar">
+          <div class="scene-window-dots">
+            <span class="w-dot w-red"></span>
+            <span class="w-dot w-yellow"></span>
+            <span class="w-dot w-green"></span>
+          </div>
+          <span class="scene-title-tag">boot://intro_video.stream</span>
+          <span style="width: 40px;"></span>
+        </div>
+
+        <div class="scene-inner-body">
+          <div class="scene-tag-pill">💻 COMPUTER SCIENCE TRIBUTE PORTAL</div>
+          <h1 class="hero-heading">Happy Teacher's Day,<br>Ms. Manika Manwal! 🌟</h1>
+          <p class="hero-subhead">
+            Behind every student who loves to write code and solve problems is a mentor who sparked that curiosity. We prepared this special video message for you:
+          </p>
+
+          <!-- Seamless Holographic Video Terminal Frame -->
+          <div class="intro-video-wrapper" id="introVideoWrap">
+            <div class="video-titlebar">
+              <span class="video-status-indicator">
+                <span class="video-pulse-dot"></span>
+                <span>LIVE STREAM: Hello Mam.mp4</span>
+              </span>
+              <span>1080p CS EDITION 🎬</span>
+            </div>
+            <div class="video-screen-frame">
+              <video id="introVideoElement" playsinline preload="auto">
+                <source src="Hello Mam.mp4" type="video/mp4">
+                <source src="C:/Users/saksh/OneDrive/Desktop/techD/Hello Mam.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="video-controls-overlay">
+                <button class="v-ctrl-btn" id="vPlayBtn">⏸ Pause</button>
+                <div class="v-progress-bar" id="vProgressTrack">
+                  <div class="v-progress-fill" id="vProgressFill"></div>
+                </div>
+                <button class="v-ctrl-btn" id="vMuteBtn">🔊 Sound</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Mascot -->
+          <div class="robot-stage-wrap" id="robotMascotBox" title="Tap Bit the mascot for a reaction!">
+            <div class="robot-bubble" id="robotSpeechText">Ms. Manika, watch the video above! ⚡</div>
+            <div class="robot-svg-box">
+              <svg id="robot-svg" viewBox="0 0 108 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                <ellipse cx="54" cy="114" rx="32" ry="5" fill="#000" opacity="0.3"/>
+                <rect x="50" y="14" width="8" height="15" rx="4" fill="#334155"/>
+                <circle cx="54" cy="11" r="5" fill="#38bdf8"/>
+                <rect x="22" y="26" width="64" height="50" rx="16" fill="#1e293b" stroke="#475569" stroke-width="2.5"/>
+                <rect x="28" y="32" width="52" height="38" rx="10" fill="#090d1a" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.4"/>
+                <ellipse class="r-eye" cx="44" cy="51" rx="5.5" ry="7" fill="#38bdf8"/>
+                <ellipse class="r-eye" cx="64" cy="51" rx="5.5" ry="7" fill="#38bdf8"/>
+                <circle cx="36" cy="62" r="2.5" fill="#f43f5e" opacity="0.6"/>
+                <circle cx="72" cy="62" r="2.5" fill="#f43f5e" opacity="0.6"/>
+                <rect x="14" y="42" width="8" height="18" rx="4" fill="#334155"/>
+                <rect x="86" y="42" width="8" height="18" rx="4" fill="#334155"/>
+                <rect x="34" y="80" width="16" height="24" rx="7" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                <rect x="58" y="80" width="16" height="24" rx="7" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Interactive Command Stream -->
+          <div class="terminal-stream-box">
+            <div class="stream-line">
+              <span class="stream-prefix">&gt;&gt;</span>
+              <span>Mentor Status:</span>
+              <span class="stream-val">Ms. Manika Manwal [CS Department Legend]</span>
+            </div>
+            <div class="stream-line">
+              <span class="stream-prefix">&gt;&gt;</span>
+              <span>Compilation Modules:</span>
+              <span class="stream-val">Patience (100%), Wisdom (100%), Inspiration (∞)</span>
+            </div>
+          </div>
+
+          <!-- Quick Interactive Commands -->
+          <div class="command-chips-row">
+            <button class="cmd-chip" data-cmd="patience">✨ // explainConcept()</button>
+            <button class="cmd-chip" data-cmd="debug">🐞 // debugSelfDoubt()</button>
+            <button class="cmd-chip" data-cmd="coffee">☕ // grantInspiration()</button>
+          </div>
+
+          <!-- Nav Bar with Guide Beacon -->
+          <div class="scene-nav-bar">
+            <div></div>
+            <div style="position: relative;">
+              <div class="nav-guide-beacon">👉 Click here to continue! ✨</div>
+              <button class="btn-cta-primary" onclick="goToScene(1)">
+                <span>Explore Highlights</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PAGE 2: CLASSROOM HIGHLIGHTS & WISDOM CARDS
+         ========================================================================== */ -->
+    <section class="page-scene" id="scene-1">
+      <div class="scene-glass-panel">
+        <div class="scene-titlebar">
+          <div class="scene-window-dots">
+            <span class="w-dot w-red"></span>
+            <span class="w-dot w-yellow"></span>
+            <span class="w-dot w-green"></span>
+          </div>
+          <span class="scene-title-tag">classroom://highlights.cs</span>
+          <span style="width: 40px;"></span>
+        </div>
+
+        <div class="scene-inner-body">
+          <div class="scene-tag-pill">📚 WHAT MAKES YOUR CLASSES SPECIAL</div>
+          <h2 class="hero-heading" style="font-size: clamp(26px, 4.5vw, 40px);">The Pillars of Your Mentorship</h2>
+          <p class="hero-subhead" style="margin-bottom: 12px;">
+            Here is what makes learning Computer Science with you such an unforgettable journey:
+          </p>
+
+          <!-- 3-Column Highlights Grid -->
+          <div class="grid-3col">
+            <div class="memory-card" onclick="triggerCardSparkle(this, '💡')">
+              <div class="card-icon-badge">💡</div>
+              <h3 class="memory-card-title">The Magic of Clarity</h3>
+              <p class="memory-card-desc">
+                Explaining complex data structures, loops, and logic so effortlessly that even the most difficult ideas feel completely natural.
+              </p>
+              <div class="memory-card-meta">// complexity: O(1) clarity</div>
+            </div>
+
+            <div class="memory-card" onclick="triggerCardSparkle(this, '🛠️')">
+              <div class="card-icon-badge">🛠️</div>
+              <h3 class="memory-card-title">The Debugger of Doubt</h3>
+              <p class="memory-card-desc">
+                Teaching that errors and bugs aren't failures — they are simply puzzles waiting to be solved with patience and a calm mind.
+              </p>
+              <div class="memory-card-meta">// try { learn(); } catch { grow(); }</div>
+            </div>
+
+            <div class="memory-card" onclick="triggerCardSparkle(this, '🌟')">
+              <div class="card-icon-badge">🌟</div>
+              <h3 class="memory-card-title">Inspiration Beyond Code</h3>
+              <p class="memory-card-desc">
+                Making every student feel capable, encouraging curiosity, and proving that Computer Science is about building the future.
+              </p>
+              <div class="memory-card-meta">// return Future.Success;</div>
+            </div>
+          </div>
+
+          <div class="scene-nav-bar">
+            <button class="btn-cta-secondary" onclick="goToScene(0)">
+              <span>← Back</span>
+            </button>
+            <div style="position: relative;">
+              <div class="nav-guide-beacon">👉 Read student letter next! 💌</div>
+              <button class="btn-cta-primary" onclick="goToScene(2)">
+                <span>Read Thank You Letter</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PAGE 3: HEARTFELT PERSONAL LETTER (LOGO SIGNED)
+         ========================================================================== -->
+    <section class="page-scene" id="scene-2">
+      <div class="scene-glass-panel">
+        <div class="scene-titlebar">
+          <div class="scene-window-dots">
+            <span class="w-dot w-red"></span>
+            <span class="w-dot w-yellow"></span>
+            <span class="w-dot w-green"></span>
+          </div>
+          <span class="scene-title-tag">letter://student_gratitude.md</span>
+          <span style="width: 40px;"></span>
+        </div>
+
+        <div class="scene-inner-body">
+          <div class="scene-tag-pill">💌 DEDICATED TO MS. MANIKA MANWAL</div>
+          
+          <div class="letter-parchment">
+            <div class="letter-header">
+              <div class="letter-to">Dear Ms. Manika Manwal,</div>
+              <div class="letter-date">// Teacher's Day 2026</div>
+            </div>
+
+            <p class="letter-body-p">
+              I wanted to take this Teacher's Day to write more than just a passing greeting. In Computer Science, we are taught that systems are built on strong foundations — and in my learning, your guidance has been that exact foundation.
+            </p>
+
+            <div class="letter-highlight-box">
+              “Thank you for always being there to help me through every difficult concept, for answering questions with boundless patience, and most of all — <strong>thank you for believing in me even when my own confidence was throwing errors.</strong>”
+            </div>
+
+            <p class="letter-body-p">
+              Having a teacher who doesn't just teach the syllabus, but genuinely cares about a student's growth and confidence, is a gift that leaves a lifelong impact.
+            </p>
+
+            <div class="letter-sign-row">
+              <div class="letter-sign-txt">// Compiled with endless respect & gratitude,</div>
+              <div class="letter-logo-seal" title="Student Signature Seal">
+                <img src="sg.png" 
+                     onerror="this.onerror=null; this.src='C:/Users/saksh/OneDrive/Desktop/my/sg.png';" 
+                     alt="Logo" />
+              </div>
+            </div>
+          </div>
+
+          <div class="scene-nav-bar">
+            <button class="btn-cta-secondary" onclick="goToScene(1)">
+              <span>← Back</span>
+            </button>
+            <div style="position: relative;">
+              <div class="nav-guide-beacon">👉 View your honors plaque! 🏆</div>
+              <button class="btn-cta-primary" onclick="goToScene(3)">
+                <span>View Certified Honors</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PAGE 4: CERTIFIED CS MENTOR PLAQUE OF HONOR
+         ========================================================================== -->
+    <section class="page-scene" id="scene-3">
+      <div class="scene-glass-panel">
+        <div class="scene-titlebar">
+          <div class="scene-window-dots">
+            <span class="w-dot w-red"></span>
+            <span class="w-dot w-yellow"></span>
+            <span class="w-dot w-green"></span>
+          </div>
+          <span class="scene-title-tag">honor://certified_mentor.award</span>
+          <span style="width: 40px;"></span>
+        </div>
+
+        <div class="scene-inner-body">
+          <div class="scene-tag-pill">🏆 CERTIFICATE OF RECOGNITION</div>
+
+          <div class="certificate-card">
+            <div class="cert-corner-decor c-tl"></div>
+            <div class="cert-corner-decor c-tr"></div>
+            <div class="cert-corner-decor c-bl"></div>
+            <div class="cert-corner-decor c-br"></div>
+
+            <div class="cert-ribbon">Honorary Distinction Award</div>
+            <h2 class="cert-title">Certified Best CS Mentor & Guide</h2>
+            <div class="cert-recipient">Ms. Manika Manwal</div>
+            <p class="cert-desc">
+              Awarded in heartfelt recognition of exceptional teaching, unmatched patience in the classroom, and the inspiring impact you leave on your students every single day.
+            </p>
+            <div class="cert-seal-wrap">
+              <div class="cert-seal" id="certSealBtn" title="Click the Golden Seal for a celebration burst!">
+                ★
+              </div>
+            </div>
+          </div>
+
+          <div class="scene-nav-bar">
+            <button class="btn-cta-secondary" onclick="goToScene(2)">
+              <span>← Back</span>
+            </button>
+            <div style="position: relative;">
+              <div class="nav-guide-beacon">👉 Launch Grand Finale! 🎓🎉</div>
+              <button class="btn-cta-primary" onclick="goToScene(4)">
+                <span>Launch Grand Finale! 🎓</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PAGE 5: GRAND FINALE CELEBRATION
+         ========================================================================== */ -->
+    <section class="page-scene" id="scene-4">
+      <div class="scene-glass-panel">
+        <div class="scene-titlebar">
+          <div class="scene-window-dots">
+            <span class="w-dot w-red"></span>
+            <span class="w-dot w-yellow"></span>
+            <span class="w-dot w-green"></span>
+          </div>
+          <span class="scene-title-tag">celebrate://happy_teachers_day.exe</span>
+          <span style="width: 40px;"></span>
+        </div>
+
+        <div class="scene-inner-body">
+          <div class="finale-celebration-box">
+            <div class="scene-tag-pill" style="border-color: var(--emerald-mint); color: var(--emerald-mint);">
+              ✨ 100% COMPILED WITH ZERO ERRORS
+            </div>
+
+            <h1 class="finale-big-title">Happy Teacher's Day,<br>Ms. Manika Manwal! 🎓✨</h1>
+
+            <div class="interactive-fireworks-prompt">
+              🎆 Click anywhere on the screen to launch fireworks!
+            </div>
+
+            <p class="hero-subhead" style="max-width: 600px; margin-bottom: 28px;">
+              Thank you for being such an extraordinary Computer Science teacher and guide. Wishing you a wonderful, joyful, and inspiring Teacher's Day!
+            </p>
+
+            <div style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px;">
+              <button class="btn-cta-primary" id="burstFireworksBtn">
+                <span>🎉</span> Launch Confetti Storm
+              </button>
+              <a href="additional.html" class="btn-cta-secondary" style="text-decoration: none; border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;">
+                <span>🧪</span> Explore CS Memory Lab Flow →
+              </a>
+              <button class="btn-cta-secondary" onclick="goToScene(0)">
+                <span>🔄</span> Replay from Beginning
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       OFFLINE AUDIO & INTRO VIDEO CONTROLLER
+       ========================================================================== */
+    const bgAudio = document.getElementById('bgAudio');
+    const musicWidget = document.getElementById('musicWidget');
+    const musicPlayIcon = document.getElementById('musicPlayIcon');
+    const musicStatus = document.getElementById('musicStatus');
+    const portalOverlay = document.getElementById('portalOverlay');
+    const enterPortalBtn = document.getElementById('enterPortalBtn');
+
+    const introVideo = document.getElementById('introVideoElement');
+    const vPlayBtn = document.getElementById('vPlayBtn');
+    const vMuteBtn = document.getElementById('vMuteBtn');
+    const vProgressTrack = document.getElementById('vProgressTrack');
+    const vProgressFill = document.getElementById('vProgressFill');
+    const floatingGuideBar = document.getElementById('floatingGuideBar');
+    const floatingGuideText = document.getElementById('floatingGuideText');
+
+    function playOfflineMusic() {
+      bgAudio.play().then(() => {
+        musicWidget.classList.add('music-playing');
+        musicPlayIcon.textContent = '⏸';
+        musicStatus.textContent = 'Playing 🎵';
+      }).catch(err => {});
+    }
+
+    function pauseOfflineMusic() {
+      bgAudio.pause();
+      musicWidget.classList.remove('music-playing');
+      musicPlayIcon.textContent = '▶';
+      musicStatus.textContent = 'Paused 🎵';
+    }
+
+    function toggleAudio() {
+      if (bgAudio.paused) {
+        playOfflineMusic();
+      } else {
+        pauseOfflineMusic();
+      }
+    }
+    musicWidget.addEventListener('click', toggleAudio);
+
+    // Video Playback Controls
+    function toggleVideo() {
+      if (introVideo.paused) {
+        introVideo.play();
+        vPlayBtn.textContent = '⏸ Pause';
+      } else {
+        introVideo.pause();
+        vPlayBtn.textContent = '▶ Play';
+      }
+    }
+    vPlayBtn.addEventListener('click', toggleVideo);
+    introVideo.addEventListener('click', toggleVideo);
+
+    vMuteBtn.addEventListener('click', () => {
+      introVideo.muted = !introVideo.muted;
+      vMuteBtn.textContent = introVideo.muted ? '🔇 Muted' : '🔊 Sound';
+    });
+
+    introVideo.addEventListener('timeupdate', () => {
+      if (introVideo.duration) {
+        const pct = (introVideo.currentTime / introVideo.duration) * 100;
+        vProgressFill.style.width = pct + '%';
+      }
+    });
+
+    // Auto guide to next scene when video finishes
+    introVideo.addEventListener('ended', () => {
+      const beacon = document.querySelector('#scene-0 .nav-guide-beacon');
+      if (beacon) {
+        beacon.textContent = "Video finished! 👉 Click Next to continue 🌟";
+      }
+      createFirework(window.innerWidth * 0.7, window.innerHeight * 0.7);
+    });
+
+    vProgressTrack.addEventListener('click', (e) => {
+      const rect = vProgressTrack.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      if (introVideo.duration) {
+        introVideo.currentTime = pos * introVideo.duration;
+      }
+    });
+
+    // Enter Portal Click
+    enterPortalBtn.addEventListener('click', () => {
+      portalOverlay.classList.add('dismissed');
+      introVideo.play().catch(e => {});
+      playOfflineMusic();
+      createFirework(window.innerWidth / 2, window.innerHeight * 0.4);
+    });
+
+    // Auto-trigger on click anywhere
+    window.addEventListener('click', function globalClickTrigger() {
+      if (!portalOverlay.classList.contains('dismissed')) {
+        portalOverlay.classList.add('dismissed');
+        introVideo.play().catch(e => {});
+        playOfflineMusic();
+      }
+      window.removeEventListener('click', globalClickTrigger);
+    });
+
+    /* ==========================================================================
+       MULTI-PAGE SCENE CONTROLLER & GUIDANCE
+       ========================================================================== */
+    let activeSceneIndex = 0;
+    const totalScenes = 5;
+    const stepButtons = document.querySelectorAll('.step-indicator-btn');
+
+    const guidePhrases = [
+      "Click here or press [ → ] to explore Highlights!",
+      "Click here or press [ → ] to read the Thank You Letter!",
+      "Click here or press [ → ] to view your Honors Award!",
+      "Click here or press [ → ] to launch the Grand Finale! 🎓",
+      "🎆 Happy Teacher's Day! Click anywhere for fireworks!"
+    ];
+
+    function advanceToNextScene() {
+      if (activeSceneIndex < totalScenes - 1) {
+        goToScene(activeSceneIndex + 1);
+      } else {
+        goToScene(0);
+      }
+    }
+
+    function goToScene(index) {
+      for (let i = 0; i < totalScenes; i++) {
+        const sceneEl = document.getElementById(`scene-${i}`);
+        if (sceneEl) sceneEl.classList.remove('active-scene');
+        if (stepButtons[i]) stepButtons[i].classList.remove('active');
+      }
+
+      activeSceneIndex = Math.max(0, Math.min(index, totalScenes - 1));
+      const targetScene = document.getElementById(`scene-${activeSceneIndex}`);
+      if (targetScene) targetScene.classList.add('active-scene');
+      if (stepButtons[activeSceneIndex]) stepButtons[activeSceneIndex].classList.add('active');
+
+      // Update Floating Guide Bar
+      floatingGuideText.textContent = guidePhrases[activeSceneIndex];
+
+      // Pause intro video if moving away from Scene 1
+      if (activeSceneIndex !== 0) {
+        introVideo.pause();
+        vPlayBtn.textContent = '▶ Play';
+      }
+
+      if (activeSceneIndex === 4) {
+        launchGrandCelebration();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    stepButtons.forEach((btn, idx) => {
+      btn.addEventListener('click', () => goToScene(idx));
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && activeSceneIndex < totalScenes - 1) {
+        goToScene(activeSceneIndex + 1);
+      } else if (e.key === 'ArrowLeft' && activeSceneIndex > 0) {
+        goToScene(activeSceneIndex - 1);
+      }
+    });
+
+    /* ==========================================================================
+       MASCOT & COMMAND INTERACTION
+       ========================================================================== */
+    const robotBox = document.getElementById('robotMascotBox');
+    const robotSpeech = document.getElementById('robotSpeechText');
+
+    const robotDialogues = [
+      "You're the best, Ms. Manika! 🌟",
+      "CS classes are always 10/10! 💡",
+      "Zero bugs, 100% appreciation! ✨",
+      "Click the Next button to see what's next! 👉"
+    ];
+
+    robotBox.addEventListener('click', () => {
+      robotBox.classList.remove('robot-jump-fx');
+      void robotBox.offsetWidth;
+      robotBox.classList.add('robot-jump-fx');
+      robotSpeech.textContent = robotDialogues[Math.floor(Math.random() * robotDialogues.length)];
+      createSparkle(robotBox.getBoundingClientRect().left + 50, robotBox.getBoundingClientRect().top);
+    });
+
+    document.querySelectorAll('.cmd-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const cmd = chip.getAttribute('data-cmd');
+        if (cmd === 'patience') robotSpeech.textContent = "Clarity Level: Maximum! 🚀";
+        if (cmd === 'debug') robotSpeech.textContent = "Errors solved with calm! 🛠️";
+        if (cmd === 'coffee') robotSpeech.textContent = "Inspiration: Infinite! ☕✨";
+        chip.style.transform = 'scale(0.95)';
+        setTimeout(() => chip.style.transform = '', 150);
+        const rect = chip.getBoundingClientRect();
+        createSparkle(rect.left + rect.width / 2, rect.top);
+      });
+    });
+
+    /* ==========================================================================
+       CANVAS BACKGROUND, MOUSE TRAIL & CELEBRATION FX
+       ========================================================================== */
+    const mCanvas = document.getElementById('matrix-canvas');
+    const mCtx = mCanvas.getContext('2d');
+    const tCanvas = document.getElementById('trail-canvas');
+    const tCtx = tCanvas.getContext('2d');
+    const fxCanvas = document.getElementById('fx-canvas');
+    const fCtx = fxCanvas.getContext('2d');
+
+    function resizeCanvases() {
+      mCanvas.width = window.innerWidth;
+      mCanvas.height = window.innerHeight;
+      tCanvas.width = window.innerWidth;
+      tCanvas.height = window.innerHeight;
+      fxCanvas.width = window.innerWidth;
+      fxCanvas.height = window.innerHeight;
+    }
+    resizeCanvases();
+    window.addEventListener('resize', resizeCanvases);
+
+    // Drifting Matrix Particles
+    const symbols = ['0', '1', '{ }', '</>', '++', '==', 'λ', '★', 'void', 'return', 'true'];
+    const matrixNodes = [];
+    for (let i = 0; i < 65; i++) {
+      matrixNodes.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        s: 11 + Math.random() * 8,
+        v: 0.3 + Math.random() * 0.6,
+        sym: symbols[Math.floor(Math.random() * symbols.length)],
+        a: 0.08 + Math.random() * 0.2
+      });
+    }
+
+    function renderMatrix() {
+      mCtx.clearRect(0, 0, mCanvas.width, mCanvas.height);
+      matrixNodes.forEach(p => {
+        mCtx.fillStyle = `rgba(56, 189, 248, ${p.a})`;
+        mCtx.font = `${p.s}px 'Fira Code', monospace`;
+        mCtx.fillText(p.sym, p.x, p.y);
+        p.y -= p.v;
+        if (p.y < -20) {
+          p.y = mCanvas.height + 20;
+          p.x = Math.random() * mCanvas.width;
+        }
+      });
+      requestAnimationFrame(renderMatrix);
+    }
+    renderMatrix();
+
+    // Mouse Sparkle Trail
+    let trailParticles = [];
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.4) {
+        trailParticles.push({
+          x: e.clientX,
+          y: e.clientY,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 1.5 - 0.5,
+          size: 2 + Math.random() * 3,
+          color: Math.random() > 0.5 ? '#fbbf24' : '#38bdf8',
+          life: 25,
+          age: 0
+        });
+      }
+    });
+
+    function renderTrail() {
+      tCtx.clearRect(0, 0, tCanvas.width, tCanvas.height);
+      trailParticles.forEach(p => {
+        p.age++;
+        p.x += p.vx;
+        p.y += p.vy;
+        const alpha = 1 - (p.age / p.life);
+        tCtx.save();
+        tCtx.globalAlpha = Math.max(0, alpha);
+        tCtx.fillStyle = p.color;
+        tCtx.beginPath();
+        tCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        tCtx.fill();
+        tCtx.restore();
+      });
+      trailParticles = trailParticles.filter(p => p.age < p.life);
+      requestAnimationFrame(renderTrail);
+    }
+    renderTrail();
+
+    // FX Particles & Fireworks
+    let particles = [];
+    const colors = ['#fbbf24', '#f59e0b', '#38bdf8', '#10b981', '#fb7185', '#c084fc', '#ffffff'];
+
+    function createSparkle(x, y, count = 25) {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 2.5 + Math.random() * 5;
+        particles.push({
+          x: x, y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 2,
+          size: 4 + Math.random() * 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          life: 60 + Math.random() * 30,
+          age: 0,
+          type: Math.random() > 0.4 ? 'rect' : 'circle'
+        });
+      }
+    }
+
+    function createFirework(x, y) {
+      const count = 55;
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2) * (i / count);
+        const speed = 2.5 + Math.random() * 4.5;
+        particles.push({
+          x: x, y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: 3 + Math.random() * 3.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          life: 70 + Math.random() * 25,
+          age: 0,
+          type: 'sparkle'
+        });
+      }
+    }
+
+    function renderFx() {
+      fCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+      particles.forEach(p => {
+        p.age++;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.08;
+        const alpha = Math.max(0, 1 - (p.age / p.life));
+
+        fCtx.save();
+        fCtx.globalAlpha = alpha;
+        fCtx.fillStyle = p.color;
+        if (p.type === 'rect') {
+          fCtx.fillRect(p.x, p.y, p.size, p.size * 0.7);
+        } else {
+          fCtx.beginPath();
+          fCtx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+          fCtx.fill();
+        }
+        fCtx.restore();
+      });
+      particles = particles.filter(p => p.age < p.life);
+      requestAnimationFrame(renderFx);
+    }
+    renderFx();
+
+    function triggerCardSparkle(card, emoji) {
+      const rect = card.getBoundingClientRect();
+      createSparkle(rect.left + rect.width / 2, rect.top + 30, 25);
+    }
+
+    document.getElementById('certSealBtn').addEventListener('click', (e) => {
+      createFirework(e.clientX, e.clientY);
+      createSparkle(e.clientX, e.clientY, 40);
+    });
+
+    function launchGrandCelebration() {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight * 0.35;
+      createFirework(cx, cy);
+      createSparkle(cx, cy, 60);
+
+      setTimeout(() => createFirework(cx - 180, cy + 40), 300);
+      setTimeout(() => createFirework(cx + 180, cy - 30), 600);
+      setTimeout(() => createSparkle(cx, cy - 80, 50), 900);
+    }
+
+    document.getElementById('burstFireworksBtn').addEventListener('click', (e) => {
+      launchGrandCelebration();
+    });
+
+    window.addEventListener('click', (e) => {
+      if (activeSceneIndex === 4 && !e.target.closest('button') && !e.target.closest('#musicWidget')) {
+        createFirework(e.clientX, e.clientY);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CS Memory Lab & Exploration Playground — Ms. Manika Manwal 💻🧪</title>
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM & CSS VARIABLES
+       Theme: Cyber-Obsidian x Emerald Mint x Solar Gold & Cyan
+       ========================================================================== */
+    :root {
+      --bg-dark: #060913;
+      --bg-surface: #0c1426;
+      --bg-surface-glass: rgba(12, 20, 38, 0.88);
+      --bg-card: rgba(17, 28, 52, 0.78);
+      
+      --gold-primary: #fbbf24;
+      --gold-glow: rgba(251, 191, 36, 0.5);
+      --gold-gradient: linear-gradient(135deg, #fef08a 0%, #fbbf24 50%, #d97706 100%);
+      
+      --cyan-bright: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.45);
+      --emerald-mint: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.4);
+      --rose-accent: #fb7185;
+      --purple-accent: #c084fc;
+      
+      --border-subtle: rgba(255, 255, 255, 0.09);
+      --border-glass: rgba(56, 189, 248, 0.28);
+      --border-gold: rgba(251, 191, 36, 0.45);
+      
+      --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Fira Code', 'Space Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 90px 16px 60px;
+      position: relative;
+    }
+
+    /* Ambient Background & Canvases */
+    #bg-canvas, #confetti-canvas, #sparkle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #bg-canvas { z-index: 0; opacity: 0.85; }
+    #sparkle-canvas { z-index: 25; }
+    #confetti-canvas { z-index: 100; display: none; }
+    #confetti-canvas.active { display: block; }
+
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 {
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+    }
+    .glow-2 {
+      bottom: -15%;
+      right: -10%;
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.14) 0%, transparent 70%);
+    }
+
+    /* ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 14px 28px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(6, 9, 19, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .nav-badge {
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      color: var(--gold-primary);
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-return-portal {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan-bright);
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .btn-return-portal:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--cyan-glow);
+    }
+
+    .audio-mini-btn {
+      background: rgba(12, 20, 38, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--gold-primary);
+      transition: all 0.25s ease;
+    }
+    .audio-mini-btn:hover {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+
+    /* ==========================================================================
+       MAIN LAB CONTAINER
+       ========================================================================== */
+    .lab-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 880px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Glass Card Standard */
+    .lab-panel {
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid var(--border-glass);
+      border-radius: 28px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.1);
+      padding: 34px 36px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lab-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--emerald-mint);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .lab-title {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #fef08a 40%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lab-subtitle {
+      font-size: 15.5px;
+      color: #94a3b8;
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE COMPILER & MODULE CHIPS
+       ========================================================================== */
+    .module-selector-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .mod-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .mod-tab-btn:hover {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--cyan-bright);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .mod-tab-btn.active {
+      background: rgba(251, 191, 36, 0.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      font-weight: 700;
+      box-shadow: 0 0 16px var(--gold-glow);
+    }
+
+    /* Live Terminal Console */
+    .terminal-window {
+      background: #070c18;
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 1.75;
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.7);
+    }
+
+    .terminal-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .dots-group {
+      display: flex;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot.r { background: #ef4444; }
+    .dot.y { background: #eab308; }
+    .dot.g { background: #22c55e; }
+
+    .terminal-content {
+      color: #e2e8f0;
+      flex: 1;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 8px;
+      height: 17px;
+      background: var(--gold-primary);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: cBlink 0.8s step-end infinite;
+    }
+    @keyframes cBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ==========================================================================
+       INTERACTIVE CS MEMORY MATRIX (4 EXPLORATION CARDS)
+       ========================================================================== */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .matrix-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .matrix-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold-primary);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--gold-glow);
+    }
+
+    .matrix-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .matrix-card-icon {
+      font-size: 22px;
+    }
+    .matrix-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .matrix-card-desc {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .matrix-card-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan-bright);
+      margin-top: auto;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE MASCOT & QUICK ACTIONS
+       ========================================================================== */
+    .mascot-lab-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: rgba(14, 22, 42, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 24px 28px;
+      margin-top: 10px;
+    }
+
+    .mascot-interactive {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+    }
+
+    .mascot-avatar {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 2px solid var(--gold-primary);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 0 20px var(--gold-glow);
+      transition: all 0.3s ease;
+      animation: floatMascot 3s ease-in-out infinite;
+    }
+    @keyframes floatMascot {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .mascot-dialogue {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mascot-name {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+    .mascot-bubble-text {
+      font-size: 14.5px;
+      color: #e2e8f0;
+    }
+
+    .quick-actions-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .quick-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--cyan-bright);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .quick-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan-bright);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       BOTTOM ACTION & CORNER BADGE
+       ========================================================================== */
+    .lab-footer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 10px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-main-action {
+      background: var(--gold-gradient);
+      color: #060913;
+      font-family: var(--font-mono);
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px var(--gold-glow);
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-main-action:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 16px 36px rgba(251, 191, 36, 0.7);
+    }
+
+    /* Corner Student Signature Logo Seal */
+    .corner-signature-badge {
+      position: fixed;
+      bottom: 24px;
+      left: 28px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(12, 20, 38, 0.92);
+      border: 1.5px solid var(--gold-primary);
+      padding: 6px 16px 6px 6px;
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px var(--gold-glow);
+    }
+    .corner-logo-frame {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid var(--gold-primary);
+      background: #000;
+    }
+    .corner-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .corner-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gold-primary);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* Responsive & Mobile Viewport Locking */
+    @media (max-width: 768px) {
+      body {
+        padding: 75px 10px 40px;
+      }
+      .top-nav { 
+        padding: 10px 12px; 
+        gap: 6px;
+      }
+      .nav-brand { font-size: 11px; }
+      .nav-badge { font-size: 10px; padding: 2px 6px; }
+      .nav-actions { gap: 6px; }
+      .audio-mini-btn { 
+        padding: 4px 10px; 
+        font-size: 10.5px; 
+      }
+      .btn-return-portal { 
+        padding: 5px 12px; 
+        font-size: 11px; 
+      }
+      
+      .lab-container {
+        width: 100%;
+        max-width: 100%;
+      }
+      .lab-panel { 
+        padding: 20px 14px; 
+        border-radius: 18px; 
+      }
+      .lab-title { 
+        font-size: clamp(22px, 6vw, 30px); 
+        margin-bottom: 8px;
+      }
+      .lab-subtitle { 
+        font-size: 13.5px; 
+        line-height: 1.55; 
+        margin-bottom: 16px;
+      }
+
+      /* Module Tabs */
+      .module-selector-tabs { 
+        gap: 6px; 
+        margin-bottom: 14px;
+      }
+      .mod-tab-btn { 
+        font-size: 11px; 
+        padding: 6px 10px; 
+        border-radius: 8px;
+      }
+
+      /* Terminal */
+      .terminal-window { 
+        padding: 14px 12px; 
+        font-size: 11.5px; 
+        border-radius: 14px;
+        min-height: 150px;
+        word-break: break-word;
+        overflow-x: auto;
+      }
+      .terminal-topbar { 
+        padding-bottom: 8px; 
+        margin-bottom: 12px; 
+        font-size: 10px; 
+      }
+
+      /* Mascot Row */
+      .mascot-lab-row { 
+        flex-direction: column; 
+        align-items: stretch; 
+        gap: 14px; 
+        padding: 16px 14px; 
+        border-radius: 16px;
+      }
+      .mascot-interactive {
+        gap: 12px;
+      }
+      .mascot-avatar {
+        width: 56px;
+        height: 56px;
+        font-size: 26px;
+        border-radius: 14px;
+      }
+      .mascot-bubble-text { font-size: 13px; }
+      .quick-actions-btns {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+      }
+      .quick-btn {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        padding: 7px 10px;
+        font-size: 11px;
+      }
+
+      /* Matrix Grid */
+      .matrix-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px; 
+        margin-top: 18px;
+      }
+      .matrix-card { 
+        padding: 16px 14px; 
+        border-radius: 14px; 
+      }
+      .matrix-card-title { font-size: 15px; }
+      .matrix-card-desc { font-size: 13px; }
+
+      /* Footer Actions */
+      .lab-footer-cta { 
+        flex-direction: column; 
+        width: 100%; 
+        gap: 10px; 
+        margin-top: 8px;
+        padding-top: 16px;
+      }
+      .btn-main-action, 
+      .lab-footer-cta .btn-return-portal { 
+        width: 100%; 
+        justify-content: center; 
+        text-align: center;
+        padding: 12px 18px;
+        font-size: 13.5px;
+      }
+
+      .corner-signature-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Native HTML5 Offline Audio -->
+  <audio id="labAudio" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="C:/Users/saksh/OneDrive/Desktop/techD/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Canvases -->
+  <canvas id="bg-canvas"></canvas>
+  <canvas id="sparkle-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Ambient Glow -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Top Navigation Header -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <span class="nav-badge">🧪 CS MEMORY LAB</span>
+      <span>Exploration Flow</span>
+    </div>
+    
+    <div class="nav-actions">
+      <button class="audio-mini-btn" id="audioToggleBtn" title="Toggle soundtrack">
+        <span id="audioIcon">▶</span>
+        <span id="audioText">Play Music</span>
+      </button>
+
+      <a href="teachers-day-surprise.html" class="btn-return-portal" title="Back to main tribute portal">
+        <span>← Main Tribute Portal</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Corner Student Signature Logo Seal (sg.png, No Name Text) -->
+  <aside class="corner-signature-badge" title="Compiled with admiration for Ms. Manika Manwal">
+    <div class="corner-logo-frame">
+      <img src="sg.png" 
+           onerror="this.onerror=null; this.src='C:/Users/saksh/OneDrive/Desktop/my/sg.png';" 
+           alt="Student Logo" />
+    </div>
+    <div class="corner-meta">
+      STUDENT TRIBUTE
+    </div>
+  </aside>
+
+  <!-- Main Exploration Container -->
+  <main class="lab-container">
+    
+    <!-- Primary Lab Panel -->
+    <section class="lab-panel">
+      <div class="lab-tag">⚡ INTERACTIVE COMPILATION LAB</div>
+      <h1 class="lab-title">The CS Logic of Mentorship</h1>
+      <p class="lab-subtitle">
+        Welcome to the CS Memory Lab, Ms. Manika Manwal! Here, we deconstruct why your teaching leaves an indelible mark through the lens of Computer Science algorithms and memories:
+      </p>
+
+      <!-- Module Selector Tabs -->
+      <div class="module-selector-tabs" id="moduleTabs">
+        <button class="mod-tab-btn active" data-mod="0">💡 01: Logic of Life</button>
+        <button class="mod-tab-btn" data-mod="1">🔄 02: Recursive Patience</button>
+        <button class="mod-tab-btn" data-mod="2">🛠️ 03: The Debugger</button>
+        <button class="mod-tab-btn" data-mod="3">✨ 04: Clean Code Ethos</button>
+        <button class="mod-tab-btn" data-mod="4">🚀 05: Future Algorithm</button>
+      </div>
+
+      <!-- Live Interactive Terminal -->
+      <div class="terminal-window">
+        <div class="terminal-topbar">
+          <div class="dots-group">
+            <span class="dot r"></span>
+            <span class="dot y"></span>
+            <span class="dot g"></span>
+          </div>
+          <span>ms_manika@cs_lab:~/modules$</span>
+          <span style="color: var(--cyan-bright);">./execute_module.sh</span>
+        </div>
+
+        <div class="terminal-content" id="terminalOutput">
+          <span style="color: var(--emerald-mint);">&gt;&gt;</span> Initializing CS Memory Lab... Click a module tab above to run interactive compilation!
+        </div>
+      </div>
+
+      <!-- Interactive Mascot & Prompt Bar -->
+      <div class="mascot-lab-row">
+        <div class="mascot-interactive" id="mascotInteractive" title="Click Bit the mascot!">
+          <div class="mascot-avatar" id="mascotAvatar">🤖</div>
+          <div class="mascot-dialogue">
+            <span class="mascot-name">Bit the Assistant:</span>
+            <span class="mascot-bubble-text" id="mascotBubble">"Ms. Manika, click any module or card to test our runtime!"</span>
+          </div>
+        </div>
+
+        <div class="quick-actions-btns">
+          <button class="quick-btn" onclick="triggerMascotQuote()">💬 Mentor Fact</button>
+          <button class="quick-btn" onclick="triggerLabConfetti()">🎉 Sparkle Burst</button>
+        </div>
+      </div>
+
+      <!-- 4-Card CS Wisdom Matrix -->
+      <div class="matrix-grid">
+        <div class="matrix-card" onclick="triggerCardExplosion(this, '💡')">
+          <div class="matrix-card-header">
+            <span class="matrix-card-icon">💡</span>
+            <h3 class="matrix-card-title">Memory Allocation</h3>
+          </div>
+          <p class="matrix-card-desc">
+            Stack memory is temporary, but the patience and wisdom you allocate in students remains permanently in ROM.
+          </p>
+          <div class="matrix-card-code">// permanent_storage.alloc()</div>
+        </div>
+
+        <div class="matrix-card" onclick="triggerCardExplosion(this, '🔄')">
+          <div class="matrix-card-header">
+            <span class="matrix-card-icon">🔄</span>
+            <h3 class="matrix-card-title">Recursive Clarity</h3>
+          </div>
+          <p class="matrix-card-desc">
+            Every complex concept is broken down step-by-step until the base case of pure understanding is achieved.
+          </p>
+          <div class="matrix-card-code">// while(confused) { explain(); }</div>
+        </div>
+
+        <div class="matrix-card" onclick="triggerCardExplosion(this, '🛡️')">
+          <div class="matrix-card-header">
+            <span class="matrix-card-icon">🛡️</span>
+            <h3 class="matrix-card-title">Zero-Error Support</h3>
+          </div>
+          <p class="matrix-card-desc">
+            Whenever a student encountered a bug in code or doubt in confidence, your encouragement caught the exception.
+          </p>
+          <div class="matrix-card-code">// catch(Doubt d) { boostConfidence(); }</div>
+        </div>
+
+        <div class="matrix-card" onclick="triggerCardExplosion(this, '🏆')">
+          <div class="matrix-card-header">
+            <span class="matrix-card-icon">🏆</span>
+            <h3 class="matrix-card-title">Optimal Complexity</h3>
+          </div>
+          <p class="matrix-card-desc">
+            Time Complexity: O(1) instantaneous encouragement. Impact Complexity: O(∞) lifelong inspiration.
+          </p>
+          <div class="matrix-card-code">// return Impact.Infinite;</div>
+        </div>
+      </div>
+
+      <!-- Footer CTA Links -->
+      <div class="lab-footer-cta">
+        <a href="teachers-day-surprise.html" class="btn-main-action">
+          <span>🎓</span>
+          <span>Return to Main Tribute Portal</span>
+          <span>→</span>
+        </a>
+        <button class="btn-return-portal" onclick="triggerLabConfetti()" style="cursor: pointer;">
+          <span>🎆 Celebrate Teacher's Day</span>
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    /* ==========================================================================
+       CS MEMORY LAB SCRIPT CONTROLLER
+       ========================================================================== */
+
+    const LAB_MODULES = [
+      {
+        title: "Module 01: The Logic of Life",
+        code: `<span style="color: #38bdf8;">function</span> <span style="color: #fbbf24;">teachLogic</span>(student) {<br>
+  &nbsp;&nbsp;student.patience = <span style="color: #10b981;">Infinity</span>;<br>
+  &nbsp;&nbsp;student.clarity = <span style="color: #10b981;">true</span>;<br>
+  &nbsp;&nbsp;<span style="color: #94a3b8;">// You showed us that logic isn't just code syntax — it is the art of calm problem solving! ✨</span><br>
+  &nbsp;&nbsp;<span style="color: #38bdf8;">return</span> student.inspire();<br>
+}`
+      },
+      {
+        title: "Module 02: Recursive Patience Stack",
+        code: `<span style="color: #38bdf8;">function</span> <span style="color: #fbbf24;">explainConcept</span>(doubtCount) {<br>
+  &nbsp;&nbsp;<span style="color: #38bdf8;">if</span> (doubtCount === 0) <span style="color: #38bdf8;">return</span> <span style="color: #10b981;">"Complete Understanding 🌟"</span>;<br>
+  &nbsp;&nbsp;<span style="color: #fbbf24;">MsManika</span>.offerSmilingExplanation();<br>
+  &nbsp;&nbsp;<span style="color: #38bdf8;">return</span> explainConcept(doubtCount - 1);<br>
+  &nbsp;&nbsp;<span style="color: #94a3b8;">// Never letting a single student leave the class with unresolved doubts! 🚀</span><br>
+}`
+      },
+      {
+        title: "Module 03: The Debugger of Self-Doubt",
+        code: `<span style="color: #38bdf8;">try</span> {<br>
+  &nbsp;&nbsp;student.attemptHardAlgorithm();<br>
+} <span style="color: #38bdf8;">catch</span> (SelfDoubtError e) {<br>
+  &nbsp;&nbsp;<span style="color: #fbbf24;">MsManika</span>.say(<span style="color: #10b981;">"You are capable of solving this. Try one more time."</span>);<br>
+  &nbsp;&nbsp;student.confidence = <span style="color: #10b981;">100%</span>;<br>
+  &nbsp;&nbsp;<span style="color: #94a3b8;">// Your belief in us is our greatest debugging tool! 🛠️</span><br>
+}`
+      },
+      {
+        title: "Module 04: Clean Code & High Principles",
+        code: `<span style="color: #38bdf8;">const</span> mentorImpact = {<br>
+  &nbsp;&nbsp;dedication: <span style="color: #10b981;">"100%"</span>,<br>
+  &nbsp;&nbsp;guidance: <span style="color: #10b981;">"Unmatched"</span>,<br>
+  &nbsp;&nbsp;lesson: <span style="color: #10b981;">"Write clean code, build honest solutions, and never stop learning."</span><br>
+};<br>
+<span style="color: #94a3b8;">// An ethos that guides every project we build! 💡</span>`
+      },
+      {
+        title: "Module 05: The Future Algorithm",
+        code: `<span style="color: #38bdf8;">const</span> celebration = <span style="color: #fbbf24;">HappyTeachersDay</span>({<br>
+  &nbsp;&nbsp;to: <span style="color: #10b981;">"Ms. Manika Manwal"</span>,<br>
+  &nbsp;&nbsp;wishes: [<span style="color: #10b981;">"Joy"</span>, <span style="color: #10b981;">"Health"</span>, <span style="color: #10b981;">"Success"</span>, <span style="color: #10b981;">"Endless Inspiration"</span>],<br>
+  &nbsp;&nbsp;status: <span style="color: #10b981;">"Compiled with deepest admiration & gratitude! 🎓✨"</span><br>
+});`
+      }
+    ];
+
+    const tabBtns = document.querySelectorAll('.mod-tab-btn');
+    const terminalOutput = document.getElementById('terminalOutput');
+    let isTyping = false;
+
+    function runModule(index) {
+      if (isTyping) return;
+      tabBtns.forEach((b, i) => b.classList.toggle('active', i === index));
+      
+      const mod = LAB_MODULES[index];
+      isTyping = true;
+      terminalOutput.innerHTML = '';
+      
+      let html = `<div style="color: #fbbf24; font-weight: bold; margin-bottom: 8px;">// [EXECUTING: ${mod.title}]</div>${mod.code}<span class="cursor-blink"></span>`;
+      
+      let i = 0;
+      function typeStep() {
+        if (i <= html.length) {
+          if (html.charAt(i) === '<') {
+            const end = html.indexOf('>', i);
+            if (end !== -1) i = end + 1;
+          }
+          terminalOutput.innerHTML = html.slice(0, i);
+          i++;
+          setTimeout(typeStep, 10);
+        } else {
+          isTyping = false;
+        }
+      }
+      typeStep();
+      createSparklesAt(window.innerWidth / 2, window.innerHeight * 0.45);
+    }
+
+    tabBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => runModule(idx));
+    });
+
+    // Run first module on load
+    window.addEventListener('DOMContentLoaded', () => {
+      runModule(0);
+    });
+
+    // Mascot interactive quotes
+    const MASCOT_QUOTES = [
+      `"Ms. Manika, your patience has O(1) time complexity — always instant!"`,
+      `"A great teacher inspires hope, ignites the imagination, and instills a love of learning."`,
+      `"Errors caught: 100%. Doubts resolved: 100%. Teacher appreciation: Infinite!"`,
+      `"CS rule #1: Good code solves problems. Great mentors change lives!"`
+    ];
+    let quoteIdx = 0;
+    function triggerMascotQuote() {
+      const bubble = document.getElementById('mascotBubble');
+      const avatar = document.getElementById('mascotAvatar');
+      quoteIdx = (quoteIdx + 1) % MASCOT_QUOTES.length;
+      bubble.textContent = MASCOT_QUOTES[quoteIdx];
+      avatar.style.transform = 'scale(1.2) rotate(10deg)';
+      setTimeout(() => avatar.style.transform = '', 300);
+      createSparklesAt(window.innerWidth * 0.35, window.innerHeight * 0.6);
+    }
+
+    document.getElementById('mascotInteractive').addEventListener('click', triggerMascotQuote);
+
+    // Audio Controller
+    const labAudio = document.getElementById('labAudio');
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+
+    function toggleLabAudio() {
+      if (labAudio.paused) {
+        labAudio.play().then(() => {
+          audioIcon.textContent = '⏸';
+          audioText.textContent = 'Playing 🎵';
+        }).catch(() => {});
+      } else {
+        labAudio.pause();
+        audioIcon.textContent = '▶';
+        audioText.textContent = 'Play Music';
+      }
+    }
+    audioToggleBtn.addEventListener('click', toggleLabAudio);
+
+    // Card explosion on click
+    function triggerCardExplosion(card, emoji) {
+      card.style.transform = 'scale(0.96)';
+      setTimeout(() => card.style.transform = '', 180);
+      const rect = card.getBoundingClientRect();
+      createSparklesAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }
+
+    // Sparkles Canvas
+    const sCanvas = document.getElementById('sparkle-canvas');
+    const sCtx = sCanvas.getContext('2d');
+    let sw = sCanvas.width = window.innerWidth;
+    let sh = sCanvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      sw = sCanvas.width = window.innerWidth;
+      sh = sCanvas.height = window.innerHeight;
+    });
+
+    const sparkles = [];
+    function createSparklesAt(x, y) {
+      const colors = ['#fbbf24', '#38bdf8', '#10b981', '#fb7185', '#ffffff'];
+      for (let i = 0; i < 24; i++) {
+        sparkles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
+          size: 3 + Math.random() * 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: 1,
+          decay: 0.025 + Math.random() * 0.02
+        });
+      }
+    }
+
+    function renderSparkles() {
+      sCtx.clearRect(0, 0, sw, sh);
+      for (let i = sparkles.length - 1; i >= 0; i--) {
+        const p = sparkles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= p.decay;
+        if (p.alpha <= 0) {
+          sparkles.splice(i, 1);
+          continue;
+        }
+        sCtx.save();
+        sCtx.globalAlpha = p.alpha;
+        sCtx.fillStyle = p.color;
+        sCtx.shadowBlur = 8;
+        sCtx.shadowColor = p.color;
+        sCtx.beginPath();
+        sCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.restore();
+      }
+      requestAnimationFrame(renderSparkles);
+    }
+    renderSparkles();
+
+    // Background Matrix Canvas
+    (function initBgCanvas() {
+      const bCanvas = document.getElementById('bg-canvas');
+      const bCtx = bCanvas.getContext('2d');
+      let bw = bCanvas.width = window.innerWidth;
+      let bh = bCanvas.height = window.innerHeight;
+      window.addEventListener('resize', () => {
+        bw = bCanvas.width = window.innerWidth;
+        bh = bCanvas.height = window.innerHeight;
+      });
+
+      const chars = ['0', '1', '{ }', '</>', 'λ', '★', '⚡'];
+      const streams = [];
+      for (let i = 0; i < 65; i++) {
+        streams.push({
+          x: Math.random() * bw,
+          y: Math.random() * bh,
+          char: chars[Math.floor(Math.random() * chars.length)],
+          speed: 0.3 + Math.random() * 0.6,
+          size: 11 + Math.random() * 7,
+          alpha: 0.08 + Math.random() * 0.2
+        });
+      }
+
+      function drawBg() {
+        bCtx.clearRect(0, 0, bw, bh);
+        streams.forEach(s => {
+          bCtx.fillStyle = `rgba(56, 189, 248, ${s.alpha})`;
+          bCtx.font = `${s.size}px 'Fira Code', monospace`;
+          bCtx.fillText(s.char, s.x, s.y);
+          s.y -= s.speed;
+          if (s.y < -20) {
+            s.y = bh + 20;
+            s.x = Math.random() * bw;
+          }
+        });
+        requestAnimationFrame(drawBg);
+      }
+      drawBg();
+    })();
+
+    // Confetti Celebration
+    const cCanvas = document.getElementById('confetti-canvas');
+    function triggerLabConfetti() {
+      cCanvas.classList.add('active');
+      const cCtx = cCanvas.getContext('2d');
+      let cw = cCanvas.width = window.innerWidth;
+      let ch = cCanvas.height = window.innerHeight;
+      const pieces = [];
+      const colors = ['#fbbf24', '#38bdf8', '#10b981', '#fb7185', '#ffffff'];
+
+      for (let i = 0; i < 120; i++) {
+        pieces.push({
+          x: Math.random() * cw,
+          y: -20 - Math.random() * 100,
+          vx: (Math.random() - 0.5) * 4,
+          vy: 2.5 + Math.random() * 3.5,
+          size: 6 + Math.random() * 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rot: Math.random() * 360
+        });
+      }
+
+      let frames = 0;
+      function runC() {
+        cCtx.clearRect(0, 0, cw, ch);
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += 2.5;
+          cCtx.save();
+          cCtx.translate(p.x, p.y);
+          cCtx.rotate((p.rot * Math.PI) / 180);
+          cCtx.fillStyle = p.color;
+          cCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+          cCtx.restore();
+        });
+        frames++;
+        if (frames < 240) {
+          requestAnimationFrame(runC);
+        } else {
+          cCanvas.classList.remove('active');
+        }
+      }
+      runC();
+    }
+  </script>
+</body>
+</html>
